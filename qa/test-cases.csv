@@ -1,0 +1,52 @@
+id,area,title,level,automation,expected
+ADR-01,Address rules,Fully structured address,unit,kit,Verdict STRUCTURED; passes the gate
+ADR-02,Address rules,Hybrid: town and country plus one line,unit,kit,Verdict HYBRID; passes the gate
+ADR-03,Address rules,Free text only,unit,kit,Verdict UNSTRUCTURED; held
+ADR-04,Address rules,Town missing,unit,kit,Held with TOWN_MISSING
+ADR-05,Address rules,Country written as a name,unit,kit,Held with COUNTRY_INVALID
+ADR-06,Address rules,Street longer than 70 characters,unit,kit,Held with TOO_LONG
+ADR-07,Address rules,House number inside the street field,unit,kit,Passes with a warning
+ADR-08,Address rules,Hybrid with three address lines,unit,kit,Held with TOO_MANY_LINES
+ADR-09,Address rules,Hybrid line repeats the town,unit,kit,Passes with a warning
+ADR-10,Address rules,PO box in the street field,unit,kit,Passes with two warnings
+ADR-11,Address rules,Special characters are escaped,unit,kit,Valid XML; passes the gate
+ADR-12,Address rules,Ultimate creditor with a free-text address,unit,kit,File held because of the ultimate creditor
+PAY-01,Payments,Domestic transfer with a structured address,end to end,sap,Accepted by the bank; booked on the statement; open item cleared
+PAY-02,Payments,Cross-border transfer with a hybrid address,end to end,manual,Accepted by the bank
+PAY-03,Payments,Payee that is not payable,end to end,manual,Held at the proposal; never reaches the file; routed to master data
+PAY-04,Payments,Negative file sent straight to the bank's test channel,integration,manual,Bank answer and reason code recorded; router names the owner
+PAY-05,Payments,One-time account,end to end,manual,Address captured in structured fields at invoice entry
+PAY-06,Payments,Alternative payee,end to end,manual,The payee's address is in the file and not the supplier's
+PAY-07,Payments,Approval by a second person,end to end,sap,Second approver required; a rejected batch releases its items
+PAY-08,Payments,Partial reject in a batch,end to end,manual,Only the rejected item reopens
+PAY-09,Payments,No status report inside the agreed time,operations,manual,Alert raised to treasury
+PAY-10,Payments,Bank statement and duplicate statement,end to end,sap,Statement posts and clears; the duplicate is refused
+PAY-11,Payments,Full weekly run,performance,manual,Run finishes inside the bank's cut-off window
+PAY-12,Payments,Direct debits and other formats,regression,sap,Unchanged
+VF-01,VERI*FACTU,Invoice issued,end to end,manual,Record created and chained; accepted by the agency's test service
+VF-02,VERI*FACTU,QR on the printed invoice,end to end,manual,Resolves in the agency's test check
+VF-03,VERI*FACTU,Invoice cancelled,end to end,manual,Cancellation record chained to the previous record
+VF-04,VERI*FACTU,Corrective invoice,end to end,manual,New record of the right type; the original is not edited
+VF-05,VERI*FACTU,Record rejected by the agency,end to end,manual,Corrected and accepted
+VF-06,VERI*FACTU,Chain exported and verified,unit,kit,Intact chain verifies; a changed amount is located
+VF-07,VERI*FACTU,Agency unreachable,integration,manual,Records queue and leave in chain order
+VF-08,VERI*FACTU,Simplified invoice,end to end,manual,Record of the right type (only if the entity issues them)
+VF-09,VERI*FACTU,Invoice of a SII entity,end to end,manual,No VERI*FACTU record is created
+VF-10,VERI*FACTU,Invoice of the foral entity,end to end,manual,Nothing is sent to the state agency
+SII-01,SII,Issued invoice of a SII entity,regression,manual,Still reaches the ledger of issued invoices
+SII-02,SII,Received invoice of a SII entity,regression,manual,Still reaches the ledger of received invoices
+EINV-01,E-invoicing,Outgoing invoice,end to end,manual,Validates against EN 16931 and is delivered
+EINV-02,E-invoicing,Incoming supplier invoice,end to end,manual,Received and posted
+EINV-03,E-invoicing,Rejection of a supplier invoice,end to end,manual,Status sent inside the deadline
+EINV-04,E-invoicing,Payment status due date,unit,kit,Paid Thu 28 Oct 2027; due Thu 4 Nov 2027
+EINV-05,E-invoicing,Partial payment,end to end,manual,No paid-in-full status until the last payment books
+EINV-06,E-invoicing,Private platform,integration,manual,Copy delivered to the public solution
+EINV-07,E-invoicing,Customer rejects our invoice,end to end,manual,Corrective invoice issued; dispute opened
+AI-01,AI,Proposal built only from words in the input,unit,kit,PROPOSED
+AI-02,AI,Low confidence,unit,kit,NEEDS_REVIEW
+AI-03,AI,Invented town,unit,kit,REJECTED
+AI-04,AI,Write-back without approval,integration,manual,Refused: no change reaches the business partner
+OPS-01,Operations,Certificate close to expiry,operations,manual,Alert raised
+OPS-02,Operations,System refresh from production,operations,manual,Test system points to test endpoints only
+OPS-03,Operations,Segregation of duties,operations,manual,Nobody can change a payee and approve its payment
+OPS-04,Operations,Reject dashboard,operations,manual,Root cause and owner visible the same day

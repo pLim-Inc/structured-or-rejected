@@ -1,0 +1,12 @@
+[
+  { "id": "G1",  "label": "12-month payment value on payable addresses (%)",          "metric": "payableValuePct",   "op": ">=", "threshold": 99,   "owner": "Master data" },
+  { "id": "G2",  "label": "Not-payable payees with an item due in the next 30 days",   "metric": "notPayableDueSoon", "op": "==", "threshold": 0,    "owner": "Accounts payable" },
+  { "id": "G3",  "label": "Planned test cases executed (%)",                           "metric": "casesExecutedPct",  "op": ">=", "threshold": 100,  "owner": "Test lead" },
+  { "id": "G4",  "label": "Open defects of severity 1 or 2",                           "metric": "openSev12",         "op": "==", "threshold": 0,    "owner": "Test lead" },
+  { "id": "G5",  "label": "Bank confirmed the new format in writing",                  "metric": "bankConfirmed",     "op": "==", "threshold": true, "owner": "Treasury" },
+  { "id": "G6",  "label": "Status report and statement processed end to end in test",  "metric": "statusLoopProven",  "op": "==", "threshold": true, "owner": "Treasury" },
+  { "id": "G7",  "label": "Fallback to the previous format rehearsed (minutes)",       "metric": "fallbackMinutes",   "op": "<=", "threshold": 30,   "owner": "SAP finance team" },
+  { "id": "G8",  "label": "Days left on the shortest-lived certificate",               "metric": "certDaysLeft",      "op": ">=", "threshold": 90,   "owner": "Integration team" },
+  { "id": "G9",  "label": "Hypercare roster and reject owners named",                  "metric": "rosterNamed",       "op": "==", "threshold": true, "owner": "Process owner" },
+  { "id": "G10", "label": "Business sign-offs received (of 5)",                        "metric": "signOffs",          "op": ">=", "threshold": 5,    "owner": "Process owner" }
+]

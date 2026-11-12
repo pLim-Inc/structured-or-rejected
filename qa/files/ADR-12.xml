@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ADR-12: Ultimate creditor with a free-text address. Synthetic test file. -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>QA-ADR-12</MsgId>
+      <CreDtTm>2027-02-01T09:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>1.00</CtrlSum>
+      <InitgPty><Nm>Alba Industrial SA</Nm></InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>QA-ADR-12-PMT</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt><Dt>2027-02-02</Dt></ReqdExctnDt>
+      <Dbtr>
+        <Nm>Alba Industrial SA</Nm>
+        <PstlAdr>
+          <StrtNm>Calle de Serrano</StrtNm>
+          <BldgNb>41</BldgNb>
+          <PstCd>28001</PstCd>
+          <TwnNm>Madrid</TwnNm>
+          <Ctry>ES</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct><Id><IBAN>ES9121000418450200051332</IBAN></Id></DbtrAcct>
+      <DbtrAgt><FinInstnId><BICFI>CAIXESBBXXX</BICFI></FinInstnId></DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId><EndToEndId>ADR-12</EndToEndId></PmtId>
+        <Amt><InstdAmt Ccy="EUR">1.00</InstdAmt></Amt>
+        <Cdtr>
+          <Nm>Proveedor Doce SL</Nm>
+          <PstlAdr>
+            <StrtNm>Paseo de Gracia</StrtNm>
+            <BldgNb>100</BldgNb>
+            <PstCd>08008</PstCd>
+            <TwnNm>Barcelona</TwnNm>
+            <Ctry>ES</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct><Id><IBAN>ES7921000813610123456789</IBAN></Id></CdtrAcct>
+        <UltmtCdtr>
+          <Nm>Filial Doce SL</Nm>
+          <PstlAdr>
+            <AdrLine>Rambla Nova 20</AdrLine>
+            <AdrLine>43004 Tarragona</AdrLine>
+          </PstlAdr>
+        </UltmtCdtr>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

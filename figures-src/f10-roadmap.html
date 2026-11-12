@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.gantt { margin-top: 36px; --q: 89.3px; }
+.axis, .ph, .ms { display: grid; grid-template-columns: var(--col) 1fr; }
+.axis { border-top: 1.5px solid var(--ink); border-bottom: 2.5px solid var(--ink); }
+.axis .lab { padding: 12px 0 10px; }
+.qs { display: grid; grid-template-columns: repeat(9, 1fr); }
+.qs div { padding: 10px 0 9px 8px; border-left: 1px solid var(--hair); font: 600 12.5px/1.2 'Inter'; letter-spacing: .1em; }
+.qs div b { display: block; font: 800 19px/1 'Inter Display','Inter'; letter-spacing: -.02em; margin-bottom: 4px; }
+.qs div.y { border-left: 2.5px solid var(--ink); }
+.ms { border-bottom: 1px solid var(--hair); }
+.ms .lab { padding: 14px 0; }
+.track { position: relative; background-image: repeating-linear-gradient(90deg, var(--hair) 0 1px, transparent 1px var(--q)); }
+.ms .track { height: 54px; }
+.tick { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--red); margin-left: -1px; }
+.tick b.l { left: auto; right: 9px; }
+.tick b { position: absolute; top: 9px; left: 8px; font: 800 20px/1 'Inter Display','Inter'; color: var(--red); letter-spacing: -.02em; }
+.ph { border-bottom: 1px solid var(--hair); }
+.ph:last-of-type { border-bottom: 2.5px solid var(--ink); }
+.ph .name { padding: 16px 20px 18px 0; display: grid; grid-template-columns: 46px 1fr; }
+.ph .name .n { font: 800 40px/.9 'Inter Display','Inter'; letter-spacing: -.04em; }
+.ph .name b { font: 700 19px/1.2 'Inter'; letter-spacing: -.012em; display: block; }
+.ph .name span { display: block; font: 600 11.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); margin-top: 6px; }
+.ph .track { padding: 16px 0 18px; }
+.bar { height: 22px; background: var(--ink); position: relative; }
+.ph p { font-size: 15px; line-height: 1.36; margin-top: 10px; padding: 2px 10px 2px 0; position: relative; z-index: 2; background: #fff; }
+.bar { z-index: 2; }
+.ph p b { font: 700 11px/1 'Inter'; letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+.ph p.exit b { color: var(--red); }
+.io { display: grid; grid-template-columns: 1fr 1fr; column-gap: 0; }
+.key { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 22px; row-gap: 14px; }
+.key div { display: grid; grid-template-columns: 26px 1fr; }
+.key b.n { font: 800 20px/1 'Inter Display','Inter'; color: var(--red); }
+.key span { font-size: 15px; line-height: 1.32; }
+.key span b { display: block; font-weight: 700; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">10</div><div><div class="meta">Roadmap · November 2026 to December 2028</div><h1>Five phases, one measurable exit each.</h1><p class="sub">The work that does not depend on anyone's date starts now. The red lines are the dates that do not move.</p></div></div>
+
+  <div class="gantt">
+    <div class="axis"><div class="lab">Quarter</div>
+      <div class="qs"><div><b>Q4</b>2026</div><div class="y"><b>Q1</b>2027</div><div><b>Q2</b></div><div><b>Q3</b></div><div><b>Q4</b></div><div class="y"><b>Q1</b>2028</div><div><b>Q2</b></div><div><b>Q3</b></div><div><b>Q4</b></div></div></div>
+
+    <div class="ms"><div class="lab">Fixed and pending dates</div>
+      <div class="track" id="ms"></div></div>
+
+    <div class="ph"><div class="name"><div class="n">1</div><div><b>Measure and scope</b><span>Now to February 2027</span></div></div>
+      <div class="track"><div class="bar" style="margin-left:calc(var(--q)*.45);width:calc(var(--q)*1.2)"></div>
+        <div class="io"><p><b>Outcome</b>Baseline published. Every Spanish entity classified. Every bank answered in writing.</p><p class="exit"><b>Exit</b>One agreed number: the share of 12-month payment value on unstructured addresses.</p></div></div></div>
+
+    <div class="ph"><div class="name"><div class="n">2</div><div><b>Fix at source</b><span>First half of 2027</span></div></div>
+      <div class="track"><div class="bar" style="margin-left:calc(var(--q)*1);width:calc(var(--q)*2)"></div>
+        <div class="io"><p><b>Outcome</b>Validation live at business-partner save. Remediation in waves, largest exposure first. New formats tested with each bank.</p><p class="exit"><b>Exit</b>99% of payment value on structured or hybrid addresses.</p></div></div></div>
+
+    <div class="ph"><div class="name"><div class="n">3</div><div><b>E-invoicing build</b><span>January to September 2027</span></div></div>
+      <div class="track"><div class="bar" style="margin-left:calc(var(--q)*1);width:calc(var(--q)*3)"></div>
+        <div class="io"><p><b>Outcome</b>Channel chosen. UBL mapping done. Status events wired to accounts payable and to bank clearing.</p><p class="exit"><b>Exit</b>End-to-end test with five suppliers and five customers once the public solution opens.</p></div></div></div>
+
+    <div class="ph"><div class="name"><div class="n">4</div><div><b>Go-live and loop</b><span>Last quarter of 2027</span></div></div>
+      <div class="track"><div class="bar" style="margin-left:calc(var(--q)*4);width:calc(var(--q)*1)"></div>
+        <div class="io"><p><b>Outcome</b>Spanish B2B e-invoicing live. Payment dates reported as statuses. Rejects routed by root cause.</p><p class="exit"><b>Exit</b>Every status inside the legal deadline. Address rejects below 0.1% of payments.</p></div></div></div>
+
+    <div class="ph"><div class="name"><div class="n">5</div><div><b>Extend and retire</b><span>2028</span></div></div>
+      <div class="track"><div class="bar" style="margin-left:calc(var(--q)*5);width:calc(var(--q)*4)"></div>
+        <div class="io"><p><b>Outcome</b>Smaller entities on e-invoicing. VERI*FACTU where it applies. Hybrid addresses phased out.</p><p class="exit"><b>Exit</b>No unstructured address in any outgoing file for 90 days.</p></div></div></div>
+  </div>
+
+  <div class="sec"><div class="lab">The red lines</div>
+    <div class="key">
+      <div><b class="n">A</b><span><b>By Dec 2026</b>Swift's new timing for addresses</span></div>
+      <div><b class="n">B</b><span><b>1 Jan 2027</b>VERI*FACTU by law · Germany issues e-invoices</span></div>
+      <div><b class="n">C</b><span><b>By Feb 2027</b>EPC sets the SEPA end date</span></div>
+      <div><b class="n">D</b><span><b>By 6 Aug 2027</b>Public e-invoicing solution available</span></div>
+      <div><b class="n">E</b><span><b>6 Oct 2027</b>Spain: B2B e-invoicing above €8M</span></div>
+      <div><b class="n">F</b><span><b>2 Dec 2027</b>AI Act: high-risk obligations</span></div>
+      <div><b class="n">G</b><span><b>1 Jan 2028</b>Germany: every B2B supplier</span></div>
+      <div><b class="n">H</b><span><b>6 Oct 2028</b>Spain: B2B e-invoicing for all</span></div>
+    </div>
+  </div>
+
+  <div class="ft"><span>Thresholds are a starting point: set your own · Status 12 Nov 2026</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+<script>
+// months since 1 Oct 2026, 3 months per quarter column
+const pos = (y, m, d = 1) => ((y - 2026) * 12 + (m - 10) + (d - 1) / 31) / 27 * 100;
+const ms = [['A', 2026, 12, 15], ['B', 2027, 1, 1], ['C', 2027, 2, 15], ['D', 2027, 8, 6], ['E', 2027, 10, 6], ['F', 2027, 12, 2], ['G', 2028, 1, 1], ['H', 2028, 10, 6]];
+const t = document.getElementById('ms');
+for (const [k, y, m, d] of ms) {
+  const e = document.createElement('div'); e.className = 'tick'; e.style.left = pos(y, m, d) + '%'; e.innerHTML = `<b class="${k === 'A' || k === 'F' ? 'l' : ''}">${k}</b>`; t.appendChild(e);
+}
+// extend each red line through the phase rows
+const g = document.querySelector('.gantt'), gr = g.getBoundingClientRect(), tr = t.getBoundingClientRect();
+g.style.position = 'relative';
+for (const [k, y, m, d] of ms) {
+  const l = document.createElement('div');
+  Object.assign(l.style, { position: 'absolute', left: (tr.left - gr.left + tr.width * pos(y, m, d) / 100) + 'px', top: (tr.bottom - gr.top) + 'px', bottom: '0', width: '1px', background: 'rgba(226,35,26,.55)', zIndex: 1, pointerEvents: 'none' });
+  g.appendChild(l);
+}
+</script>
+</body></html>

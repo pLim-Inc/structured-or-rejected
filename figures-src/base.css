@@ -1,0 +1,47 @@
+/* Swiss system: one grid, one typeface, black and white, one red accent. No radius, no shadow, no gradient. */
+:root { --ink: #000; --ink2: #2b2b2b; --ink3: #6f6f6f; --hair: #c9c9c9; --tint: #f0f0ee; --red: #e2231a; --paper: #fff; --col: 268px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #9a9a9a; }
+body { font-family: 'Inter', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; font-feature-settings: 'tnum' 1, 'ss01' 1; }
+.fig { width: 1200px; background: var(--paper); padding: 56px 64px 34px; position: relative; }
+
+/* header: heavy rule, red figure number in the margin column, title flush left on the content column */
+.hd { border-top: 10px solid var(--ink); padding-top: 18px; display: grid; grid-template-columns: var(--col) 1fr; }
+.hd .no { font: 800 124px/.8 'Inter Display', 'Inter'; letter-spacing: -.06em; color: var(--red); margin-left: -6px; }
+.hd .meta { font: 600 13px/1.4 'Inter'; letter-spacing: .15em; text-transform: uppercase; }
+.hd h1 { font: 800 58px/1 'Inter Display', 'Inter'; letter-spacing: -.038em; margin-top: 12px; }
+.hd .sub { font: 400 21px/1.38 'Inter'; margin-top: 18px; max-width: 700px; color: var(--ink2); }
+
+/* section: label in the margin column, content on the right, hairline on top */
+.sec { display: grid; grid-template-columns: var(--col) 1fr; border-top: 1.5px solid var(--ink); padding-top: 14px; margin-top: 40px; }
+.sec.full { display: block; }
+.lab { font: 600 13px/1.45 'Inter'; letter-spacing: .15em; text-transform: uppercase; }
+.lab small { display: block; font: 400 15px/1.4 'Inter'; letter-spacing: 0; text-transform: none; color: var(--ink3); margin-top: 8px; padding-right: 28px; }
+.sec.full > .lab { margin-bottom: 16px; }
+
+p, li, td { font: 400 17.5px/1.42 'Inter'; }
+b, strong { font-weight: 700; }
+.mono, pre, code { font-family: 'DejaVu Sans Mono', monospace; }
+.red { color: var(--red); }
+.big { font: 800 30px/1.05 'Inter Display', 'Inter'; letter-spacing: -.025em; }
+
+/* status: a geometric mark plus a word, never colour alone */
+.st { display: inline-flex; align-items: center; gap: 9px; font: 700 13px/1 'Inter'; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.st i { width: 13px; height: 13px; flex: none; display: inline-block; }
+.st.law i, .st.ok i { background: var(--ink); }
+.st.open i { border: 2px solid var(--ink); }
+.st.ann i { border: 1.5px solid var(--ink); background: repeating-linear-gradient(135deg, #000 0 2px, #fff 2px 4.5px); }
+.st.est i { border: 2px solid var(--ink); border-radius: 50%; }
+.st.no { color: var(--red); }
+.st.no i { background: var(--red); position: relative; }
+.st.no i::before, .st.no i::after { content: ''; position: absolute; left: 6px; top: 1.5px; width: 1.6px; height: 10px; background: #fff; transform: rotate(45deg); }
+.st.no i::after { transform: rotate(-45deg); }
+
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; font: 600 12.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; padding: 0 16px 9px 0; border-bottom: 2.5px solid var(--ink); vertical-align: bottom; }
+td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--hair); vertical-align: top; }
+tr:last-child td { border-bottom: 1.5px solid var(--ink); }
+td.m, .m { font: 400 15.5px/1.45 'DejaVu Sans Mono', monospace; }
+
+.ft { margin-top: 40px; border-top: 1.5px solid var(--ink); padding-top: 11px; display: flex; justify-content: space-between; gap: 24px; font: 500 12px/1.45 'Inter'; letter-spacing: .1em; text-transform: uppercase; }
+.ft span:last-child { white-space: nowrap; font-weight: 700; }

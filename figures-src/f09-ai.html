@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.in { font: 400 16.5px/1.55 'DejaVu Sans Mono', monospace; border-left: 4px solid var(--ink); padding-left: 16px; }
+.in b { font-weight: 700; }
+.gh, .g { display: grid; grid-template-columns: 62px 236px 1fr 1fr; column-gap: 22px; }
+.gh { border-bottom: 2.5px solid var(--ink); padding-bottom: 9px; align-items: end; }
+.gh span { font: 600 12.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; }
+.gh .p { font: 800 21px/1.1 'Inter Display','Inter'; letter-spacing: -.02em; text-transform: none; }
+.gh .p small { display: block; font: 600 11.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); margin-top: 5px; }
+.g { border-bottom: 1px solid var(--hair); padding: 16px 0 18px; }
+.g:last-child { border-bottom: 1.5px solid var(--ink); }
+.g .n { font: 800 40px/.9 'Inter Display','Inter'; letter-spacing: -.04em; }
+.g .t b { font: 700 18.5px/1.22 'Inter'; letter-spacing: -.012em; display: block; }
+.g .t p { font-size: 15px; line-height: 1.36; color: var(--ink3); margin-top: 5px; }
+.g pre { font-size: 14px; line-height: 1.52; }
+.g pre b { font-weight: 700; }
+.g pre s { text-decoration: none; color: var(--red); font-weight: 700; }
+.g .r { font-size: 15.5px; line-height: 1.36; }
+.g .r .st { margin-bottom: 8px; display: flex; }
+.g .skip { color: var(--ink3); font-size: 15.5px; }
+.g.out { background: var(--tint); margin: 0 -14px; padding-left: 14px; padding-right: 14px; }
+.g.out .big { font-size: 25px; }
+.nev { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 22px; }
+.nev div { border-top: 4px solid var(--red); padding-top: 10px; }
+.nev b { font: 800 40px/1 'Inter Display','Inter'; letter-spacing: -.04em; display: block; color: var(--red); }
+.nev p { font: 600 16.5px/1.3 'Inter'; margin-top: 6px; letter-spacing: -.005em; }
+.fit td { font-size: 15.5px; padding-top: 9px; padding-bottom: 9px; }
+.fit td:first-child { font-weight: 700; width: 236px; }
+.fit td:last-child { width: 130px; padding-right: 0; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">09</div><div><div class="meta">AI on SAP BTP · Worked example · Address structuring</div><h1>AI proposes. Rules decide.<br>A person approves.</h1><p class="sub">Two model answers for the same free-text address, sent through the same three guards.</p></div></div>
+
+  <div class="sec"><div class="lab">What leaves your system<small>Address lines and country only. No name, no IBAN, no tax ID.</small></div>
+    <div class="in">Country: <b>ES</b><br>Address: <b>Avenida Diagonal 477, planta 9 | 08036 Barcelona, España</b></div>
+  </div>
+
+  <div class="sec full">
+    <div class="gh"><span></span><span>Guard</span><span class="p">Model answer A<small>Faithful to the source</small></span><span class="p">Model answer B<small>Confident and wrong</small></span></div>
+
+    <div class="g"><div class="n">0</div><div class="t"><b>The proposal</b><p>From a model behind the generative AI hub in SAP AI Core</p></div>
+<pre>street      <b>Avenida Diagonal</b>
+houseNumber <b>477</b>
+postalCode  <b>08036</b>
+city        <b>Barcelona</b>
+confidence  <b>0.96</b></pre>
+<pre>street      <b>Avenida Diagonal</b>
+houseNumber <b>477</b>
+postalCode  <b>08036</b>
+city        <s>Madrid</s>
+confidence  <s>0.99</s></pre></div>
+
+    <div class="g"><div class="n">1</div><div class="t"><b>Nothing invented</b><p>Every word of the proposal must exist in the source text</p></div>
+      <div class="r"><span class="st ok"><i></i>Pass</span>All five words are in the source.</div>
+      <div class="r"><span class="st no"><i></i>Rejected</span>“madrid” is not in the source. The claimed confidence is ignored.</div></div>
+
+    <div class="g"><div class="n">2</div><div class="t"><b>The same rules as every address</b><p>Town, ISO country, lengths. The country comes from master data, never from the model</p></div>
+      <div class="r"><span class="st ok"><i></i>Pass</span>Format STRUCTURED, payable, no issues.</div>
+      <div class="skip">Not reached</div></div>
+
+    <div class="g"><div class="n">3</div><div class="t"><b>A person decides</b><p>Low confidence or any warning goes to the review queue</p></div>
+      <div class="r"><span class="st ok"><i></i>Pass</span>0.96 is above the 0.80 threshold. No warnings.</div>
+      <div class="skip">Not reached</div></div>
+
+    <div class="g out"><div class="n"></div><div class="t"><b>Outcome</b></div>
+      <div><div class="big">PROPOSED</div><p style="margin-top:6px;font-size:15.5px">The approver confirms. The write goes through the Business Partner API, with their name on it.</p></div>
+      <div><div class="big red">REJECTED</div><p style="margin-top:6px;font-size:15.5px">Nothing is written. The record stays in the manual queue.</p></div></div>
+  </div>
+
+  <div class="sec"><div class="lab">Four decisions AI does not get</div>
+    <div class="nev">
+      <div><b>1</b><p>Whether a legal entity is in scope of a tax mandate</p></div>
+      <div><b>2</b><p>A write to master data without a named approver</p></div>
+      <div><b>3</b><p>The release of a payment</p></div>
+      <div><b>4</b><p>A fiscal record or its fingerprint</p></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">Where SAP AI fits<small>Names and availability per SAP's Sapphire and TechEd 2026 news guides</small></div>
+    <table class="fit">
+      <tr><th>Job</th><th>Capability</th><th>Role</th></tr>
+      <tr><td>Split free-text addresses</td><td>Model behind the generative AI hub in SAP AI Core</td><td>Proposes</td></tr>
+      <tr><td>Explain a reject, name its owner</td><td>Custom agent built in Joule Studio, read-only tools</td><td>Assists</td></tr>
+      <tr><td>Read onboarding documents</td><td>SAP Document AI</td><td>Proposes</td></tr>
+      <tr><td>Flag unusual payee changes</td><td>Tabular models of the SAP-RPT family</td><td>Flags</td></tr>
+      <tr><td>Resolve tax submission errors</td><td>Tax and Compliance Assistant in Joule</td><td>Assists</td></tr>
+    </table>
+  </div>
+
+  <div class="ft"><span>Both answers are test cases in the companion kit · AI Act high-risk obligations from 2 Dec 2027</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+</body></html>

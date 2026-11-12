@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="dg.css">
+<style>
+.sw { grid-template-columns: repeat(5, 1fr); grid-template-rows: auto repeat(6, auto); }
+.stp, .lane { grid-column: var(--c); }
+.stp { grid-row: calc(var(--r) + 1); }
+.lane { grid-row: 2 / -1; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">15</div><div><div class="meta">Process flow 2 of 2 · Selling side</div><h1>Order to cash.</h1><p class="sub">The same loop, mirrored. On the buying side you owe the payment status. Here the customer owes it to you.</p></div></div>
+
+  <div class="dg" id="d">
+    <div class="sw">
+      <div class="zh" style="grid-column:1">Customer<small>Through the e-invoicing network</small></div>
+      <div class="zh" style="grid-column:2">Billing<small>Issues and corrects</small></div>
+      <div class="zh" style="grid-column:3">Tax agency<small>One track per entity</small></div>
+      <div class="zh" style="grid-column:4">Accounts receivable<small>Applies cash, compares</small></div>
+      <div class="zh" style="grid-column:5">Bank<small>Credits and reports</small></div>
+      <div class="lane" style="--c:1"></div><div class="lane" style="--c:2"></div><div class="lane" style="--c:3"></div><div class="lane" style="--c:4"></div><div class="lane" style="--c:5"></div>
+
+      <div class="stp" id="q1" style="--c:2;--r:1"><div class="n">1</div><div><b>Creates the billing document</b><span class="m">SD billing · FI invoice</span></div></div>
+      <div class="stp" id="q2" style="--c:2;--r:2"><div class="n">2</div><div><b>Electronic document is created</b><span class="m">on posting</span></div></div>
+      <div class="stp ctl" id="q3" style="--c:3;--r:2"><div class="n">3</div><div><b>Receives the record</b><span class="m">SII, or VERI*FACTU chained to the last record</span></div></div>
+      <div class="stp" id="q4" style="--c:1;--r:2"><div class="n">4</div><div><b>Receives the e‑invoice</b><span class="m">UBL · copy to the public solution</span></div></div>
+      <div class="stp" id="q5" style="--c:1;--r:3"><div class="n">5</div><div><b>Accepts, or rejects with a status</b><span class="m">silence means accepted</span></div></div>
+      <div class="stp exc" id="q6" style="--c:2;--r:3"><div class="n">6</div><div><b>Issues a corrective invoice</b><span class="m">new record · back to step 1</span></div></div>
+      <div class="stp" id="q7" style="--c:1;--r:4"><div class="n">7</div><div><b>Pays</b><span class="m">credit transfer</span></div></div>
+      <div class="stp" id="q8" style="--c:5;--r:4"><div class="n">8</div><div><b>Credits the account</b><span class="m">camt.054 · camt.053</span></div></div>
+      <div class="stp" id="q9" style="--c:4;--r:5"><div class="n">9</div><div><b>Applies the cash, clears the item</b><span class="m">own clearing date</span></div></div>
+      <div class="stp" id="q10" style="--c:1;--r:5"><div class="n">10</div><div><b>Reports paid in full</b><span class="m">status with the customer's date</span></div></div>
+      <div class="stp ctl" id="q11" style="--c:4;--r:6"><div class="n">11</div><div><b>Compares the two dates</b><span class="m">a gap opens a dispute</span></div></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">Reading the flow</div>
+    <div class="lg"><span><i class="nb"></i>Step</span><span><i class="nb r"></i>Control</span><span><i class="ln"></i>Normal path</span><span><i class="ln r"></i>Rejected by the customer</span></div>
+  </div>
+
+  <div class="sec"><div class="lab">The three controls</div>
+    <div class="tk">
+      <div><span>Step 3</span><b>One track per entity.</b><p>The tax regime of the company code decides. A SII entity never creates a VERI*FACTU record.</p></div>
+      <div><span>Step 6</span><b>A rejection never edits.</b><p>It produces a corrective invoice and, for VERI*FACTU entities, a new record in the chain.</p></div>
+      <div><span>Step 11</span><b>Two dates, one invoice.</b><p>The customer's status can arrive before your statement. Process statements daily, and do not dun on a gap.</p></div>
+    </div>
+  </div>
+
+  <div class="ft"><span>SAP objects for each handoff are in the article · Illustrative</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+<script src="dg.js"></script>
+<script>
+document.fonts.ready.then(() => wires('#d', [
+  { from: 'q1', fs: 'b', to: 'q2', ts: 't' },
+  { from: 'q2', fs: 'r', to: 'q3', ts: 'l' },
+  { from: 'q2', fs: 'l', to: 'q4', ts: 'r' },
+  { from: 'q4', fs: 'b', to: 'q5', ts: 't' },
+  { from: 'q5', fs: 'r', to: 'q6', ts: 'l', red: 1 },
+  { from: 'q5', fs: 'b', to: 'q7', ts: 't' },
+  { from: 'q7', fs: 'r', to: 'q8', ts: 'l', label: 'incoming payment', ldy: -11 },
+  { from: 'q8', fs: 'b', to: 'q9', ts: 'r', label: 'statement', lseg: 1, ldy: -11 },
+  { from: 'q7', fs: 'b', to: 'q10', ts: 't' },
+  { from: 'q10', fs: 'b', to: 'q11', ts: 'l', label: "the customer's date", lseg: 1, ldy: -11 },
+  { from: 'q9', fs: 'b', to: 'q11', ts: 't' },
+]));
+</script>
+</body></html>

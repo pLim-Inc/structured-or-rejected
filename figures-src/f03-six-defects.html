@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.d { display: grid; grid-template-columns: 62px 206px 1fr 1fr; column-gap: 0; border-bottom: 1px solid var(--hair); padding: 18px 0 19px; }
+.d:last-child { border-bottom: 1.5px solid var(--ink); }
+.dh { display: grid; grid-template-columns: 62px 206px 1fr 1fr; border-bottom: 2.5px solid var(--ink); padding-bottom: 9px; }
+.dh span { font: 600 12.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; }
+.d .n { font: 800 44px/.9 'Inter Display','Inter'; letter-spacing: -.04em; }
+.d .t { font: 700 19px/1.2 'Inter'; letter-spacing: -.01em; padding-right: 20px; }
+.d .t small { display: block; font: 400 15px/1.35 'Inter'; color: var(--ink3); margin-top: 6px; letter-spacing: 0; }
+.d pre { font-size: 14.5px; line-height: 1.5; padding-right: 18px; white-space: pre-wrap; }
+.d pre s { text-decoration: none; color: var(--red); font-weight: 700; }
+.d pre b { font-weight: 700; }
+.d .code { font: 700 12px/1 'Inter'; letter-spacing: .1em; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 7px; }
+.d .fix { font: 700 12px/1 'Inter'; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: 7px; }
+.d.six { background: var(--tint); margin: 0 -14px; padding-left: 14px; padding-right: 14px; }
+.end { margin-top: 22px; display: grid; grid-template-columns: var(--col) 1fr; }
+.end p { font: 700 24px/1.22 'Inter Display','Inter'; letter-spacing: -.02em; max-width: 720px; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">03</div><div><div class="meta">Worked examples · Address data in SAP</div><h1>Six defects, six fixes.</h1><p class="sub">What is stored today, what the check reports, and what the record must look like before it is paid.</p></div></div>
+
+  <div class="sec full" style="margin-top:36px">
+    <div class="dh"><span></span><span>Defect</span><span>Stored in SAP today</span><span>After the fix</span></div>
+
+    <div class="d"><div class="n">1</div><div class="t">House number in the street field</div>
+<pre><span class="code">House_number_in_street</span>STREET     = <s>Calle Principal 123</s>
+HOUSE_NUM1 = <s>(empty)</s></pre>
+<pre><span class="fix">Split at source</span>STREET     = <b>Calle Principal</b>
+HOUSE_NUM1 = <b>123</b></pre></div>
+
+    <div class="d"><div class="n">2</div><div class="t">Postal code in the city field</div>
+<pre><span class="code">Postcode_in_town</span>CITY1      = <s>28001 Madrid</s>
+POST_CODE1 = <s>(empty)</s></pre>
+<pre><span class="fix">Move the code</span>CITY1      = <b>Madrid</b>
+POST_CODE1 = <b>28001</b></pre></div>
+
+    <div class="d"><div class="n">3</div><div class="t">Country missing or left to a default</div>
+<pre><span class="code">Country_invalid</span>COUNTRY    = <s>(empty)</s>
+STR_SUPPL1 = <s>España</s></pre>
+<pre><span class="fix">ISO code, never a name</span>COUNTRY    = <b>ES</b>
+STR_SUPPL1 = <b>(empty)</b></pre></div>
+
+    <div class="d"><div class="n">4</div><div class="t">One-time vendor keyed as free text<small>Address typed at posting time, table BSEC</small></div>
+<pre><span class="code">Town_missing</span>STRAS = <s>Av Diagonal 477 pl 9 Barcelona</s>
+ORT01 = <s>(empty)</s>   LAND1 = ES</pre>
+<pre><span class="fix">Fields mandatory, or a real partner</span>STRAS = <b>Av Diagonal 477 pl 9</b>
+ORT01 = <b>Barcelona</b>   PSTLZ = <b>08036</b></pre></div>
+
+    <div class="d"><div class="n">5</div><div class="t">Custom exit that concatenates<small>Format tree builds address lines from every field</small></div>
+<pre><span class="code">Unstructured in the file</span><s>&lt;AdrLine&gt;</s>Proveedor Tres SL Av
+Diagonal 477 08036 Barcelona<s>&lt;/AdrLine&gt;</s></pre>
+<pre><span class="fix">Standard nodes, exit removed</span><b>&lt;StrtNm&gt;</b>Avenida Diagonal<b>&lt;/StrtNm&gt;</b>
+<b>&lt;TwnNm&gt;</b>Barcelona<b>&lt;/TwnNm&gt;&lt;Ctry&gt;</b>ES<b>&lt;/Ctry&gt;</b></pre></div>
+
+    <div class="d six"><div class="n red">6</div><div class="t">The company's own address<small>Company code address, never reviewed since go-live</small></div>
+<pre><span class="code">Postcode_in_town</span>CITY1      = <s>MADRID (28046) SPAIN</s>
+STREET     = <s>Pº Castellana 100 Pl. 12</s></pre>
+<pre><span class="fix">One record per company code</span>CITY1      = <b>Madrid</b>   POST_CODE1 = <b>28046</b>
+STREET     = <b>Paseo de la Castellana</b>
+HOUSE_NUM1 = <b>100</b></pre></div>
+  </div>
+
+  <div class="end"><div class="lab">Where to start</div><p>Start with number 6. It is one record per company code, and it travels on <span class="red">every payment you send</span>.</p></div>
+
+  <div class="ft"><span>Illustrative records · Tables ADRC and BSEC · Check codes from the companion kit</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+</body></html>

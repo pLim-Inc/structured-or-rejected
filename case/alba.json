@@ -1,0 +1,46 @@
+{
+  "label": "composite",
+  "permission": "",
+  "asOf": "2026-11-12",
+  "method": "Illustrative. Shaped like the output of the exposure report and the file check",
+  "group": {
+    "alias": "Alba",
+    "erp": "SAP S/4HANA Cloud Private Edition",
+    "companyCodes": 5,
+    "paymentRun": { "frequency": "weekly", "weekday": "Tuesday", "paymentsPerRun": 1100 },
+    "paymentFormat": { "message": "pain.001.001.03", "builtYear": 2014, "addressWrittenAs": "free-text lines" }
+  },
+  "entities": [
+    { "alias": "Alba Industrial SA", "domicile": "Madrid", "turnoverMEUR": 420, "vatReporting": "SII", "invoicesIssuedPerYear": null },
+    { "alias": "Alba Distribución SL", "domicile": "Sevilla", "turnoverMEUR": 38, "vatReporting": "SII", "invoicesIssuedPerYear": null },
+    { "alias": "Alba Norte SL", "domicile": "Bilbao", "turnoverMEUR": 12, "vatReporting": "foral", "invoicesIssuedPerYear": null },
+    { "alias": "Alba Servicios SL", "domicile": "Valencia", "turnoverMEUR": 4.5, "vatReporting": "none", "invoicesIssuedPerYear": 1750 },
+    { "alias": "Alba Holding SL", "domicile": "Madrid", "turnoverMEUR": 1.2, "vatReporting": "none", "invoicesIssuedPerYear": 150 }
+  ],
+  "banks": [
+    { "alias": "Bank A", "channel": "SAP Multi-Bank Connectivity", "shareOfPaymentValuePct": 70 },
+    { "alias": "Bank B", "channel": "portal upload", "shareOfPaymentValuePct": 30 }
+  ],
+  "baseline": {
+    "payees": { "structured": 4480, "warnings": 1408, "notPayable": 512 },
+    "valueMEUR": { "structured": 262.1, "warnings": 40.6, "notPayable": 9.4 },
+    "lastFile": { "creditorAddresses": 1104, "structured": 0, "hybrid": 0, "unstructured": 1104 },
+    "oneTimePayments12m": 296,
+    "topNotPayable": { "payees": 40, "valueMEUR": 7.6 }
+  },
+  "calendar": [
+    { "date": "2026-11-12", "event": "Baseline published", "law": false },
+    { "date": "2026-12-15", "event": "VERI*FACTU go or no-go", "law": false },
+    { "date": "2027-01-01", "event": "VERI*FACTU, as the law stands", "law": true },
+    { "date": "2027-03-04", "event": "Go or no-go, payments wave 1", "law": false },
+    { "date": "2027-03-09", "event": "Pilot run, bank A", "law": false },
+    { "date": "2027-03-16", "event": "Full run, bank A", "law": false },
+    { "date": "2027-04-13", "event": "Pilot run, bank B", "law": false },
+    { "date": "2027-04-20", "event": "Full run, bank B", "law": false },
+    { "date": "2027-04-30", "event": "Hypercare exit review", "law": false },
+    { "date": "2027-09-21", "event": "Go or no-go, e-invoicing", "law": false },
+    { "date": "2027-10-06", "event": "E-invoicing, entities above EUR 8M", "law": true },
+    { "date": "2028-10-06", "event": "E-invoicing, the other entities", "law": true }
+  ],
+  "targets": { "payableValuePctBeforePilot": 99, "addressRejectPctAfterGoLive": 0.1 }
+}

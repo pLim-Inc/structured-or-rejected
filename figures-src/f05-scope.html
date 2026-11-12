@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.qh, .q { display: grid; grid-template-columns: 62px 430px 96px 1fr; }
+.qh { border-bottom: 2.5px solid var(--ink); padding-bottom: 9px; }
+.qh span { font: 600 12.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; }
+.q { border-bottom: 1px solid var(--hair); padding: 18px 0 20px; align-items: start; }
+.q .n { font: 800 44px/.9 'Inter Display','Inter'; letter-spacing: -.04em; }
+.q .t { font: 700 21px/1.22 'Inter'; letter-spacing: -.012em; padding-right: 26px; }
+.q .t small { display: block; font: 400 15px/1.38 'Inter'; color: var(--ink3); margin-top: 7px; letter-spacing: 0; }
+.q .y { font: 700 13px/1 'Inter'; letter-spacing: .12em; padding-top: 7px; white-space: nowrap; }
+.q .y::after { content: ' →'; }
+.q .o b { font: 800 21px/1.2 'Inter Display','Inter'; letter-spacing: -.02em; display: block; }
+.q .o p { font-size: 16px; margin-top: 6px; color: var(--ink2); }
+.q .o p em { font-style: normal; color: var(--red); font-weight: 600; }
+.no { font: 700 12px/1 'Inter'; letter-spacing: .12em; color: var(--ink3); margin: -9px 0 -9px 0; background: #fff; display: inline-block; padding: 0 8px 0 0; position: relative; top: -1px; }
+.split { border-top: 2.5px solid var(--ink); margin-top: 26px; padding-top: 10px; font: 600 13px/1.3 'Inter'; letter-spacing: .15em; text-transform: uppercase; }
+.q.last { border-bottom: 1.5px solid var(--ink); }
+.two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; }
+.ex td, .ex th { font-size: 15.5px; }
+.ex th { font-size: 12px; }
+.ex td { padding-top: 10px; padding-bottom: 10px; }
+.ex td:first-child { font-weight: 700; }
+.ex td.in { color: var(--red); font-weight: 700; }
+.ex tr.hit td { background: var(--tint); }
+.ex tr.hit td:first-child { box-shadow: -10px 0 0 var(--tint); }
+.sum { margin-top: 16px; font: 800 24px/1.2 'Inter Display','Inter'; letter-spacing: -.02em; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">05</div><div><div class="meta">Spain · Scope check · Entity by entity</div><h1>Which mandate hits<br>which legal entity?</h1><p class="sub">Obligations attach to the legal entity, not to the SAP system. Ask four questions once per entity.</p></div></div>
+
+  <div class="sec full" style="margin-top:36px">
+    <div class="qh"><span></span><span>Question</span><span></span><span>If the answer is yes</span></div>
+    <div class="q"><div class="n">1</div><div class="t">Is its tax domicile in Álava, Bizkaia, Gipuzkoa or Navarra?</div><div class="y">YES</div><div class="o"><b>Foral regime</b><p>TicketBAI and Batuz in the Basque provinces, Navarra's own system. VERI*FACTU does not apply.</p></div></div>
+    <div class="q"><div class="n">2</div><div class="t">Does it report its VAT ledgers through SII?<small>Turnover above €6 million, a VAT group, the monthly refund register, or a voluntary opt-in</small></div><div class="y">YES</div><div class="o"><b>SII continues</b><p>The entity is excluded from VERI*FACTU. Most large SAP estates end here.</p></div></div>
+    <div class="q last"><div class="n">3</div><div class="t">If neither: does it issue invoices with software?</div><div class="y">YES</div><div class="o"><b>VERI*FACTU-compliant billing system</b><p>Law today: 1 January 2027 for companies, 1 July 2027 for everyone else. <em>Announced on 5 October 2026, not yet law: October 2028.</em></p></div></div>
+
+    <div class="split">Then, for every entity, in SII or not</div>
+    <div class="q last" style="border-top:0"><div class="n">4</div><div class="t">Was its turnover above €8 million last year?<small>B2B e-invoicing: issue, receive, and report rejection and payment date for each invoice</small></div><div class="y">YES</div>
+      <div class="two"><div class="o"><b>From 6 October 2027</b><p>The larger companies go first.</p></div><div class="o"><b style="color:var(--ink3)">If no: 6 October 2028</b><p>Every other company and professional.</p></div></div></div>
+  </div>
+
+  <div class="sec"><div class="lab">Worked example<small>One fictional group, five entities, one S/4HANA client. Assumes no VAT group, which would bring every member into SII. Foral provisions apply to Alba Norte.</small></div>
+    <div>
+      <table class="ex">
+        <tr><th>Entity</th><th>Domicile</th><th>Turnover</th><th>VAT reporting</th><th>VERI*FACTU</th><th>E-invoicing from</th></tr>
+        <tr><td>Alba Industrial SA</td><td>Madrid</td><td>€420M</td><td>SII</td><td>Excluded</td><td>6 Oct 2027</td></tr>
+        <tr><td>Alba Distribución SL</td><td>Sevilla</td><td>€38M</td><td>SII</td><td>Excluded</td><td>6 Oct 2027</td></tr>
+        <tr><td>Alba Norte SL</td><td>Bilbao</td><td>€12M</td><td>Foral: Batuz</td><td>Does not apply</td><td>6 Oct 2027</td></tr>
+        <tr class="hit"><td>Alba Servicios SL</td><td>Valencia</td><td>€4.5M</td><td>Not in SII</td><td class="in">In scope</td><td>6 Oct 2028</td></tr>
+        <tr class="hit"><td>Alba Holding SL</td><td>Madrid</td><td>€1.2M</td><td>Not in SII</td><td class="in">In scope</td><td>6 Oct 2028</td></tr>
+      </table>
+      <p class="sum">Two of five entities need a VERI*FACTU decision.<br>All five need B2B e-invoicing.</p>
+    </div>
+  </div>
+
+  <div class="ft"><span>Status 12 Nov 2026 · RD 1007/2023, RDL 15/2025, RD 238/2026, Order HAC/1028/2026</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+</body></html>

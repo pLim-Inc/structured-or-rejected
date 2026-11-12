@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic sample. One debtor, three creditors: structured, hybrid, unstructured. -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>SAMPLE-20261112-001</MsgId>
+      <CreDtTm>2026-11-12T10:00:00</CreDtTm>
+      <NbOfTxs>3</NbOfTxs>
+      <CtrlSum>4500.00</CtrlSum>
+      <InitgPty><Nm>Empresa ABC SA</Nm></InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>SAMPLE-PMT-1</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt><Dt>2026-11-16</Dt></ReqdExctnDt>
+      <Dbtr>
+        <Nm>Empresa ABC SA</Nm>
+        <PstlAdr>
+          <StrtNm>Calle Principal</StrtNm>
+          <BldgNb>123</BldgNb>
+          <PstCd>28001</PstCd>
+          <TwnNm>Madrid</TwnNm>
+          <Ctry>ES</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct><Id><IBAN>ES9121000418450200051332</IBAN></Id></DbtrAcct>
+      <DbtrAgt><FinInstnId><BICFI>CAIXESBBXXX</BICFI></FinInstnId></DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId><EndToEndId>E2E-0001</EndToEndId></PmtId>
+        <Amt><InstdAmt Ccy="EUR">1500.00</InstdAmt></Amt>
+        <Cdtr>
+          <Nm>Fournisseur Un SARL</Nm>
+          <PstlAdr>
+            <StrtNm>Rue de la Paix</StrtNm>
+            <BldgNb>10</BldgNb>
+            <PstCd>75002</PstCd>
+            <TwnNm>Paris</TwnNm>
+            <Ctry>FR</Ctry>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct><Id><IBAN>FR1420041010050500013M02606</IBAN></Id></CdtrAcct>
+      </CdtTrfTxInf>
+      <CdtTrfTxInf>
+        <PmtId><EndToEndId>E2E-0002</EndToEndId></PmtId>
+        <Amt><InstdAmt Ccy="EUR">1200.00</InstdAmt></Amt>
+        <Cdtr>
+          <Nm>Lieferant Zwei GmbH</Nm>
+          <PstlAdr>
+            <PstCd>60311</PstCd>
+            <TwnNm>Frankfurt am Main</TwnNm>
+            <Ctry>DE</Ctry>
+            <AdrLine>Kaiserplatz 1, 49. Stock</AdrLine>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct><Id><IBAN>DE89370400440532013000</IBAN></Id></CdtrAcct>
+      </CdtTrfTxInf>
+      <CdtTrfTxInf>
+        <PmtId><EndToEndId>E2E-0003</EndToEndId></PmtId>
+        <Amt><InstdAmt Ccy="EUR">1800.00</InstdAmt></Amt>
+        <Cdtr>
+          <Nm>Proveedor Tres SL</Nm>
+          <PstlAdr>
+            <AdrLine>Avenida Diagonal 477, planta 9</AdrLine>
+            <AdrLine>08036 Barcelona, España</AdrLine>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct><Id><IBAN>ES7921000813610123456789</IBAN></Id></CdtrAcct>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

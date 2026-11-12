@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.bar { display: flex; gap: 2px; height: 30px; }
+.bar i { display: block; height: 100%; }
+.bar .a { background: var(--ink); }
+.bar .b { background: repeating-linear-gradient(135deg, #000 0 2px, #fff 2px 5px); outline: 1.5px solid var(--ink); outline-offset: -1.5px; }
+.bar .c { background: var(--red); }
+.bl { display: flex; justify-content: space-between; font: 600 12.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; margin: 0 0 7px; }
+.bl + .bar { margin-bottom: 20px; }
+.key { display: grid; grid-template-columns: 1.25fr 1fr 1fr; column-gap: 26px; margin-top: 4px; }
+.key > div { border-top: 1.5px solid var(--ink); padding-top: 9px; }
+.key .t { display: flex; align-items: center; gap: 9px; font: 700 13px/1.2 'Inter'; letter-spacing: .1em; text-transform: uppercase; }
+.key .t i { width: 14px; height: 14px; flex: none; }
+.key .n { font: 800 27px/1.05 'Inter Display','Inter'; letter-spacing: -.03em; margin-top: 9px; }
+.key p { font-size: 14.5px; line-height: 1.36; color: var(--ink2); margin-top: 3px; }
+.file { margin-top: 24px; display: grid; grid-template-columns: auto 1fr; column-gap: 22px; align-items: center; border-top: 1.5px solid var(--ink); padding-top: 14px; }
+.file > b { font: 800 58px/.9 'Inter Display','Inter'; letter-spacing: -.045em; color: var(--red); }
+.file p { font-size: 17.5px; line-height: 1.36; max-width: 470px; }
+.f3 { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 28px; }
+.f3 div { border-top: 4px solid var(--ink); padding-top: 10px; }
+.f3 b { font: 800 62px/.92 'Inter Display','Inter'; letter-spacing: -.05em; display: block; }
+.f3 strong { display: block; font: 800 19px/1.18 'Inter Display','Inter'; letter-spacing: -.018em; margin-top: 10px; }
+.f3 p { font-size: 14.5px; line-height: 1.38; color: var(--ink2); margin-top: 5px; }
+.dc { display: grid; grid-template-columns: 1fr 1fr; column-gap: 30px; }
+.dc div { border-top: 1px solid var(--hair); padding: 10px 0 11px; }
+.dc div:nth-child(-n+2) { border-top: 0; padding-top: 0; }
+.dc span { display: block; font: 600 11px/1.2 'Inter'; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
+.dc b { font: 700 16px/1.28 'Inter'; letter-spacing: -.008em; }
+.cal { display: grid; grid-template-columns: 1fr 1fr; column-gap: 30px; }
+.cal div { display: grid; grid-template-columns: 112px 1fr; border-top: 1px solid var(--hair); padding: 8px 0 9px; font: 400 15px/1.3 'Inter'; }
+.cal div:nth-child(-n+2) { border-top: 0; padding-top: 0; }
+.cal b { font: 700 13.5px/1.45 'DejaVu Sans Mono', monospace; }
+.cal .law, .cal .law b { color: var(--red); font-weight: 700; }
+.tg { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 22px; }
+.tg div { border-top: 4px solid var(--ink); padding-top: 10px; }
+.tg b { font: 800 34px/1 'Inter Display','Inter'; letter-spacing: -.04em; display: block; }
+.tg p { font-size: 14.5px; line-height: 1.36; color: var(--ink2); margin-top: 6px; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">16</div><div><div class="meta">Complete case · A composite, not a client</div><h1>One group,<br>baseline to go‑live.</h1><p class="sub">Alba: five legal entities, one S/4HANA system, two house banks, one payment run a week. The numbers are illustrative and add up.</p></div></div>
+
+  <div class="sec" style="margin-top:38px"><div class="lab">Baseline<small>Measured on 12 November 2026 with steps 1 and 2 of the kit</small></div>
+    <div>
+      <div class="bl"><span>By value paid in 12 months</span><span>€312.1M</span></div>
+      <div class="bar"><i class="a" style="width:84%"></i><i class="b" style="width:13%"></i><i class="c" style="width:3%"></i></div>
+      <div class="bl"><span>By payee</span><span>6,400 payees</span></div>
+      <div class="bar"><i class="a" style="width:70%"></i><i class="b" style="width:22%"></i><i class="c" style="width:8%"></i></div>
+      <div class="key">
+        <div><div class="t"><i style="background:#000"></i>Structured and payable</div><div class="n">84.0% of value</div><p>4,480 payees, 70.0%. €262.1M.</p></div>
+        <div><div class="t"><i style="background:repeating-linear-gradient(135deg,#000 0 2px,#fff 2px 4.5px);border:1.5px solid #000"></i>Payable, with warnings</div><div class="n">13.0%</div><p>1,408 payees, 22.0%. €40.6M.</p></div>
+        <div><div class="t red"><i style="background:var(--red)"></i>Not payable</div><div class="n red">3.0%</div><p>512 payees, 8.0%. €9.4M. Town or country missing.</p></div>
+      </div>
+      <div class="file"><b>1,104 of 1,104</b><p>creditor addresses in last week's payment file were unstructured. <b>The master data is mostly ready. The format is not.</b></p></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">Three findings</div>
+    <div class="f3">
+      <div><b>97%</b><strong>The format is the first defect.</strong><p>That share of value could leave in a compliant format today. None does, because the 2014 format writes two free-text lines.</p></div>
+      <div><b>40</b><strong>The exposure is concentrated.</strong><p>Forty payees hold €7.6M of the €9.4M that is not payable. Fixing them lifts payable value to 99.4%.</p></div>
+      <div><b>296</b><strong>One-time accounts are the hole.</strong><p>That many payments a year have no business partner to validate. The address is typed into the document.</p></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">Decisions<small>All at the recommended level, except the last, which is open</small></div>
+    <div class="dc">
+      <div><span>Address format</span><b>Structured where street and number separate cleanly. Hybrid for the rest, for now.</b></div>
+      <div><span>Payment format</span><b>The SAP-delivered pain.001.001.09 format, with no address logic of its own.</b></div>
+      <div><span>Gate</span><b>Block at business-partner save. Hold and route at the proposal.</b></div>
+      <div><span>Bank channel</span><b>Bank B joins SAP Multi-Bank Connectivity before its wave.</b></div>
+      <div><span>VERI*FACTU</span><b>Tested now. Decided on 15 December, against the BOE of that day.</b></div>
+      <div><span>E-invoicing channel</span><b>Private platform or public solution: open until March 2027.</b></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">Calendar<small>Red: dates set by law</small></div>
+    <div class="cal">
+      <div><b>12 Nov 2026</b>Baseline published</div>
+      <div><b>13 Apr 2027</b>Pilot run, bank B</div>
+      <div><b>15 Dec 2026</b>VERI*FACTU go or no-go</div>
+      <div><b>20 Apr 2027</b>Full run, bank B</div>
+      <div class="law"><b>1 Jan 2027</b>VERI*FACTU, as the law stands</div>
+      <div><b>30 Apr 2027</b>Hypercare exit review</div>
+      <div><b>4 Mar 2027</b>Go or no-go, payments wave 1</div>
+      <div><b>21 Sep 2027</b>Go or no-go, e-invoicing</div>
+      <div><b>9 Mar 2027</b>Pilot run, bank A</div>
+      <div class="law"><b>6 Oct 2027</b>E-invoicing, three larger entities</div>
+      <div><b>16 Mar 2027</b>Full run, bank A</div>
+      <div class="law"><b>6 Oct 2028</b>E-invoicing, two smaller entities</div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">Targets<small>Proposals. Set your own</small></div>
+    <div class="tg">
+      <div><b>≥ 99%</b><p>of payment value on payable addresses before the pilot.</p></div>
+      <div><b>&lt; 0.1%</b><p>of payments rejected for the address after go-live. At most one per run.</p></div>
+      <div><b>100%</b><p>of payment statuses reported inside the legal deadline.</p></div>
+      <div><b>Next day</b><p>Every VERI*FACTU record accepted, or corrected and accepted.</p></div>
+    </div>
+  </div>
+
+  <div class="ft"><span>Composite case · Illustrative numbers · Not a client</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+</body></html>

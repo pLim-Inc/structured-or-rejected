@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="dg.css">
+<style>
+.g { display: grid; grid-template-columns: 136px 176px 250px 210px 156px; column-gap: 36px; row-gap: 22px; }
+.g > .zh { margin-bottom: 0; font-size: 16.5px; }
+.tall { grid-row: 2 / 5; display: flex; flex-direction: column; justify-content: center; }
+.tr b.t { font: 800 25px/1 'Inter Display','Inter'; letter-spacing: -.03em; }
+.tr .who { font: 600 10.5px/1.35 'Inter'; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin: 7px 0 8px; display: block; }
+.tr p { margin-top: 0; }
+.bx { min-height: 148px; }
+.bx.tall { min-height: 0; }
+.bx ul { list-style: none; margin-top: 8px; }
+.bx li { font: 400 13px/1.32 'Inter'; color: var(--ink2); padding: 5px 0; border-top: 1px solid var(--hair); }
+.foral { grid-column: 3 / 6; font: 400 14px/1.35 'Inter'; color: var(--ink2); border-top: 1px solid var(--hair); padding-top: 10px; }
+.foral b { color: var(--ink); }
+.chk { display: grid; grid-template-columns: 1fr 1fr; column-gap: 30px; row-gap: 18px; }
+.chk div { border-top: 4px solid var(--ink); padding-top: 9px; }
+.chk b { display: block; font: 800 19px/1.15 'Inter Display','Inter'; letter-spacing: -.02em; }
+.chk p { font-size: 14.5px; line-height: 1.36; color: var(--ink2); margin-top: 5px; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">12</div><div><div class="meta">SAP reference architecture · View 2 of 3</div><h1>One framework,<br>three tax tracks.</h1><p class="sub">SAP Document and Reporting Compliance for Spain. Every track starts with the same electronic document and ends at a different door.</p></div></div>
+
+  <div class="dg" id="d">
+    <div class="g">
+      <div class="zh">Source<small>SAP S/4HANA</small></div>
+      <div class="zh">Framework<small>Document and Reporting Compliance</small></div>
+      <div class="zh">Process<small>One per track</small></div>
+      <div class="zh">Communication<small>Sends, signs, returns</small></div>
+      <div class="zh">Outside<small>Who answers</small></div>
+
+      <div class="bx tall" id="src"><b>Source document</b><ul><li>SD billing document</li><li>FI invoice</li><li>Supplier invoice</li></ul></div>
+      <div class="bx tall" id="fw"><b>Electronic document</b><p>Created when the source document is posted, then mapped to the XML of the authority.</p><ul><li>eDocument Cockpit</li><li>Manage Electronic Documents</li><li>Application log: content errors</li><li>Interface log: connection errors</li></ul></div>
+
+      <div class="bx tr" id="p1"><b class="t">SII</b><span class="who">Alba Industrial · Alba Distribución</span><p>Electronic Documents Through SII. One ledger record per invoice, within four days.</p></div>
+      <div class="bx" id="c1"><b>SAP Integration Suite</b><p>SAP's integration package for SII. The keystore holds the client certificate.</p><span class="m">also listed under the cloud edition</span></div>
+      <div class="bx ext" id="o1"><b>Tax agency</b><p>SII web services.</p><span class="m">accepted · accepted with errors · rejected</span></div>
+
+      <div class="bx tr" id="p2"><b class="t">VERI*FACTU</b><span class="who">Alba Servicios · Alba Holding</span><p>Veri*Factu Documents, bundled into Veri*Factu Lists by a scheduled job.</p></div>
+      <div class="bx" id="c2"><b>SAP Document and Reporting Compliance, cloud edition</b><p>Submits the lists and returns the status of each record.</p></div>
+      <div class="bx ext" id="o2"><b>Tax agency</b><p>VERI*FACTU services. QR check for the recipient.</p></div>
+
+      <div class="bx opt tr" id="p3"><b class="t">B2B e-invoice</b><span class="who">All five entities, by date</span><p>Announced by SAP. Confirm what is released for your version.</p></div>
+      <div class="bx opt" id="c3"><b>Depends on that release</b><p>UBL invoice out. Invoices and statuses in.</p></div>
+      <div class="bx ext" id="o3"><b>E-invoicing network</b><p>Private platforms and the agency's public solution.</p></div>
+
+      <div class="foral"><b>Not drawn: Alba Norte.</b> Its domicile is foral, so it reports through TicketBAI and Batuz and takes none of the three tracks.</div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">Reading the diagram</div>
+    <div class="lg"><span><i class="ln"></i>Sent</span><span><i class="ln d"></i>Answer</span><span><i class="sq o"></i>Not confirmed as released</span><span><i class="sq e"></i>Outside SAP</span></div>
+  </div>
+
+  <div class="sec"><div class="lab">Four details that decide quiet operations</div>
+    <div class="chk">
+      <div><b>Certificates live in the communication layer.</b><p>When the client certificate expires, every submission stops. Monitor the expiry date from day one.</p></div>
+      <div><b>There are two logs.</b><p>Content errors and connection errors are kept apart. The first triage question is which log holds the error.</p></div>
+      <div><b>The job schedule is a compliance parameter.</b><p>VERI*FACTU records have to follow the invoice closely. Agree the frequency with tax.</p></div>
+      <div><b>One track per entity.</b><p>The routing key is the tax regime of the company code. An invoice of a SII entity never creates a VERI*FACTU record.</p></div>
+    </div>
+  </div>
+
+  <div class="ft"><span>Original drawing of SAP's documented standard · Names checked 12 Nov 2026</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+<script src="dg.js"></script>
+<script>
+document.fonts.ready.then(() => {
+  const yOf = id => { const r = document.getElementById(id).getBoundingClientRect(), f = document.getElementById('fw').getBoundingClientRect(); return r.top + r.height / 2 - (f.top + f.height / 2); };
+  const w = [{ from: 'src', fs: 'r', to: 'fw', ts: 'l' }];
+  for (const i of [1, 2, 3]) {
+    w.push({ from: 'fw', fs: 'r', fo: yOf('p' + i), to: 'p' + i, ts: 'l' });
+    w.push({ from: 'p' + i, fs: 'r', fo: -22, to: 'c' + i, ts: 'l', to_: -22 }, { from: 'c' + i, fs: 'l', fo: 22, to: 'p' + i, ts: 'r', to_: 22, dashed: 1 });
+    w.push({ from: 'c' + i, fs: 'r', fo: -22, to: 'o' + i, ts: 'l', to_: -22 }, { from: 'o' + i, fs: 'l', fo: 22, to: 'c' + i, ts: 'r', to_: 22, dashed: 1 });
+  }
+  wires('#d', w);
+});
+</script>
+</body></html>

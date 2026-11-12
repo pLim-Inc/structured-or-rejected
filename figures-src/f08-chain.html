@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.str { font: 400 15px/1.6 'DejaVu Sans Mono', monospace; word-break: break-all; border-left: 4px solid var(--ink); padding-left: 16px; }
+.str b { font-weight: 700; }
+.arrow { font: 700 13px/1 'Inter'; letter-spacing: .14em; text-transform: uppercase; margin: 14px 0 12px 20px; }
+.hash { font: 700 17px/1.5 'DejaVu Sans Mono', monospace; word-break: break-all; border-left: 4px solid var(--red); padding-left: 16px; }
+.chain { display: grid; grid-template-columns: 1fr 42px 1fr 42px 1fr; }
+.rec { border-top: 4px solid var(--ink); padding-top: 10px; }
+.rec .h { font: 800 23px/1.1 'Inter Display','Inter'; letter-spacing: -.02em; }
+.rec .k { font: 600 11.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); margin-top: 5px; }
+.rec dl { margin-top: 12px; display: grid; grid-template-columns: auto 1fr; column-gap: 10px; row-gap: 3px; }
+.rec dt { font: 400 13px/1.5 'DejaVu Sans Mono', monospace; color: var(--ink3); }
+.rec dd { font: 700 13px/1.5 'DejaVu Sans Mono', monospace; word-break: break-all; }
+.rec .fp { margin-top: 12px; border-top: 1px solid var(--hair); padding-top: 9px; }
+.rec .fp span { display: block; font: 700 11px/1 'Inter'; letter-spacing: .14em; text-transform: uppercase; }
+.rec .fp b { display: block; font: 700 14.5px/1.4 'DejaVu Sans Mono', monospace; margin-top: 5px; }
+.link { display: flex; align-items: center; justify-content: center; }
+.link svg { width: 30px; height: 20px; }
+.tamper { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; }
+.tamper .c { border-top: 4px solid var(--ink); padding-top: 10px; }
+.tamper .c.bad { border-top-color: var(--red); }
+.tamper .t { font: 700 12px/1 'Inter'; letter-spacing: .14em; text-transform: uppercase; }
+.tamper .c.bad .t { color: var(--red); }
+.tamper p { font-size: 16px; margin-top: 8px; }
+.tamper .m { display: block; font-weight: 700; font-size: 14.5px; margin-top: 8px; word-break: break-all; }
+.tamper s { color: var(--red); text-decoration-thickness: 2px; }
+.verdict { margin-top: 20px; font: 800 30px/1.12 'Inter Display','Inter'; letter-spacing: -.025em; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">08</div><div><div class="meta">Worked example · VERI*FACTU record chain</div><h1>Change one amount and the chain breaks.</h1><p class="sub">Each billing record carries a SHA-256 fingerprint computed over its own fields and the fingerprint of the record before it.</p></div></div>
+
+  <div class="sec"><div class="lab">One record<small>The first registration record of the tax agency's specification. Its previous fingerprint is empty.</small></div>
+    <div>
+      <div class="str"><b>IDEmisorFactura</b>=89890001K&amp;<b>NumSerieFactura</b>=12345678/G33&amp;<b>FechaExpedicionFactura</b>=01-01-2024&amp;<b>TipoFactura</b>=F1&amp;<b>CuotaTotal</b>=12.35&amp;<b>ImporteTotal</b>=123.45&amp;<b>Huella</b>=&amp;<b>FechaHoraHusoGenRegistro</b>=2024-01-01T19:20:30+01:00</div>
+      <div class="arrow">↓ SHA-256, hexadecimal, upper case</div>
+      <div class="hash">3C464DAF61ACB827C65FDA19F352A4E3BDC2C640E9E9FC4CC058073F38F12F60</div>
+    </div>
+  </div>
+
+  <div class="sec full"><div class="lab">Three records, one chain</div>
+    <div class="chain">
+      <div class="rec"><div class="h">Record 1</div><div class="k">Registration · invoice 12345678/G33</div>
+        <dl><dt>ImporteTotal</dt><dd>123.45</dd><dt>Huella (previous)</dt><dd>(empty)</dd><dt>Generated</dt><dd>19:20:30</dd></dl>
+        <div class="fp"><span>Fingerprint</span><b>3C464DAF…38F12F60</b></div></div>
+      <div class="link"><svg viewBox="0 0 30 20"><path d="M0 10h22" stroke="#000" stroke-width="3"/><path d="M30 10l-11-7v14z"/></svg></div>
+      <div class="rec"><div class="h">Record 2</div><div class="k">Registration · invoice 12345679/G34</div>
+        <dl><dt>ImporteTotal</dt><dd>123.45</dd><dt>Huella (previous)</dt><dd>3C464DAF…38F12F60</dd><dt>Generated</dt><dd>19:20:35</dd></dl>
+        <div class="fp"><span>Fingerprint</span><b>F7B94CFD…802A2B97</b></div></div>
+      <div class="link"><svg viewBox="0 0 30 20"><path d="M0 10h22" stroke="#000" stroke-width="3"/><path d="M30 10l-11-7v14z"/></svg></div>
+      <div class="rec"><div class="h">Record 3</div><div class="k">Cancellation · invoice 12345679/G34</div>
+        <dl><dt>Huella (previous)</dt><dd>F7B94CFD…802A2B97</dd><dt>Generated</dt><dd>19:20:40</dd></dl>
+        <div class="fp"><span>Fingerprint</span><b>177547C0…88F90C68</b></div></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">The tamper test<small>Somebody edits the amount of record 2 after the fact.</small></div>
+    <div>
+      <div class="tamper">
+        <div class="c"><div class="t">Stored in record 2</div><p>ImporteTotal <b>123.45</b></p><span class="m">F7B94CFD…802A2B97</span></div>
+        <div class="c bad"><div class="t">Recomputed after the edit</div><p>ImporteTotal <s>123.45</s> <b class="red">23.45</b></p><span class="m red">A823750F…44D6AA1F</span></div>
+      </div>
+      <p class="verdict">The fingerprints differ. <span class="red">The chain breaks at record 2</span>, and record 3 no longer points at anything real.</p>
+    </div>
+  </div>
+
+  <div class="ft"><span>Field order per the AEAT fingerprint specification · Recomputed with the companion kit</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+</body></html>

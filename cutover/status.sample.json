@@ -1,0 +1,14 @@
+{
+  "asOf": "2027-03-04",
+  "wave": "Payments wave 1, bank A",
+  "payableValuePct": 99.4,
+  "notPayableDueSoon": 0,
+  "casesExecutedPct": 100,
+  "openSev12": 0,
+  "bankConfirmed": true,
+  "statusLoopProven": true,
+  "fallbackMinutes": 22,
+  "certDaysLeft": 214,
+  "rosterNamed": true,
+  "signOffs": 5
+}

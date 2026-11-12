@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="dg.css">
+<style>
+.sw { grid-template-columns: repeat(5, 1fr); grid-template-rows: auto repeat(8, auto); }
+.stp, .lane { grid-column: var(--c); }
+.stp { grid-row: calc(var(--r) + 1); }
+.lane { grid-row: 2 / -1; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">14</div><div><div class="meta">Process flow 1 of 2 · Buying side</div><h1>Invoice to pay.</h1><p class="sub">Fourteen steps in five lanes. The flow leaves the supplier, crosses to the bank and comes back with a date.</p></div></div>
+
+  <div class="dg" id="d">
+    <div class="sw">
+      <div class="zh" style="grid-column:1">Supplier<small>Through the e-invoicing network</small></div>
+      <div class="zh" style="grid-column:2">Accounts payable<small>Posts, proposes, reports</small></div>
+      <div class="zh" style="grid-column:3">Master data<small>Owns the address</small></div>
+      <div class="zh" style="grid-column:4">Treasury<small>Checks and approves</small></div>
+      <div class="zh" style="grid-column:5">Bank<small>Validates, answers, books</small></div>
+      <div class="lane" style="--c:1"></div><div class="lane" style="--c:2"></div><div class="lane" style="--c:3"></div><div class="lane" style="--c:4"></div><div class="lane" style="--c:5"></div>
+
+      <div class="stp" id="p1" style="--c:1;--r:1"><div class="n">1</div><div><b>Issues the e‑invoice</b><span class="m">UBL · EN 16931</span></div></div>
+      <div class="stp" id="p2" style="--c:2;--r:1"><div class="n">2</div><div><b>Posts the supplier invoice</b><span class="m">SII record if the entity is in SII</span></div></div>
+      <div class="stp" id="p3" style="--c:2;--r:2"><div class="n">3</div><div><b>Rejects, or accepts by silence</b><span class="m">a rejection is a status</span></div></div>
+      <div class="stp ctl" id="p4" style="--c:3;--r:3"><div class="n">4</div><div><b>Keeps each payee payable</b><span class="m">verdict per address</span></div></div>
+      <div class="stp" id="p5" style="--c:2;--r:4"><div class="n">5</div><div><b>Creates the payment proposal</b><span class="m">payment run</span></div></div>
+      <div class="stp ctl" id="p6" style="--c:4;--r:4"><div class="n">6</div><div><b>Holds what is not payable</b><span class="m">check before approval</span></div></div>
+      <div class="stp" id="p7" style="--c:4;--r:5"><div class="n">7</div><div><b>Approves the batch</b><span class="m">two approvers</span></div></div>
+      <div class="stp exc" id="p10" style="--c:3;--r:6"><div class="n">10</div><div><b>Corrects at source</b><span class="m">fixed once</span></div></div>
+      <div class="stp" id="p8" style="--c:5;--r:5"><div class="n">8</div><div><b>Validates the file</b><span class="m">pain.001.001.09</span></div></div>
+      <div class="stp ctl" id="p9" style="--c:5;--r:6"><div class="n">9</div><div><b>Accepts or rejects</b><span class="m">pain.002 + reason code</span></div></div>
+      <div class="stp" id="p11" style="--c:5;--r:7"><div class="n">11</div><div><b>Books the debit</b><span class="m">camt.053 · booking date</span></div></div>
+      <div class="stp" id="p12" style="--c:2;--r:7"><div class="n">12</div><div><b>Clears the open item</b><span class="m">payment date known</span></div></div>
+      <div class="stp ctl" id="p13" style="--c:2;--r:8"><div class="n">13</div><div><b>Reports paid in full</b><span class="m">due in four days</span></div></div>
+      <div class="stp" id="p14" style="--c:1;--r:8"><div class="n">14</div><div><b>Sees the payment date on its invoice</b><span class="m">status received</span></div></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">Reading the flow</div>
+    <div class="lg"><span><i class="nb"></i>Step</span><span><i class="nb r"></i>Control</span><span><i class="ln"></i>Normal path</span><span><i class="ln r"></i>Held or rejected</span><span><i class="ln d"></i>Proposed again</span></div>
+  </div>
+
+  <div class="sec"><div class="lab">The four controls</div>
+    <div class="tk" style="grid-template-columns:repeat(4,1fr);column-gap:22px">
+      <div><span>Step 4</span><b>Block at creation.</b><p>A stop at business-partner save costs thirty seconds.</p></div>
+      <div><span>Step 6</span><b>Hold before approval.</b><p>What the bank would reject never enters the file.</p></div>
+      <div><span>Step 9</span><b>Route by reason.</b><p>The code names the root cause, and the root cause names the owner.</p></div>
+      <div><span>Step 13</span><b>Report on a clock.</b><p>Four days, weekends and national holidays excluded.</p></div>
+    </div>
+  </div>
+
+  <div class="ft"><span>SAP objects for each handoff are in the article · Illustrative</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+<script src="dg.js"></script>
+<script>
+document.fonts.ready.then(() => wires('#d', [
+  { from: 'p1', fs: 'r', to: 'p2', ts: 'l' },
+  { from: 'p2', fs: 'b', to: 'p3', ts: 't' },
+  { from: 'p3', fs: 'b', to: 'p5', ts: 't' },
+  { from: 'p4', fs: 'r', to: 'p6', ts: 't', label: 'verdict', lseg: 0, ldy: -11 },
+  { from: 'p5', fs: 'r', to: 'p6', ts: 'l' },
+  { from: 'p6', fs: 'b', to: 'p7', ts: 't' },
+  { from: 'p7', fs: 'r', to: 'p8', ts: 'l' },
+  { from: 'p8', fs: 'b', to: 'p9', ts: 't' },
+  { from: 'p9', fs: 'b', to: 'p11', ts: 't' },
+  { from: 'p6', fs: 'l', fo: 18, to: 'p10', ts: 't', to_: 30, red: 1, label: 'held', lseg: 1, ldx: 24 },
+  { from: 'p9', fs: 'l', to: 'p10', ts: 'r', red: 1, label: 'rejected: address', ldy: -11, ldx: -34 },
+  { from: 'p10', fs: 'l', to: 'p5', ts: 'b', dashed: 1, label: 'proposed again', lseg: 0, ldy: -11 },
+  { from: 'p11', fs: 'l', to: 'p12', ts: 'r', label: 'statement', ldy: -11 },
+  { from: 'p12', fs: 'b', to: 'p13', ts: 't' },
+  { from: 'p13', fs: 'l', to: 'p14', ts: 'r' },
+]));
+</script>
+</body></html>

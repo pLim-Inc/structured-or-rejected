@@ -1,0 +1,51 @@
+[
+  { "id": "ADR-01", "title": "Fully structured address",
+    "creditor": { "name": "Proveedor Uno SL", "street": "Calle de Alcalá", "houseNumber": "45", "postalCode": "28014", "city": "Madrid", "country": "ES", "iban": "ES7921000813610123456789" },
+    "expect": { "format": "STRUCTURED", "payable": true, "issues": [] } },
+
+  { "id": "ADR-02", "title": "Hybrid: town and country plus one line",
+    "creditor": { "name": "Lieferant Zwei GmbH", "postalCode": "60311", "city": "Frankfurt am Main", "country": "DE", "freeText": ["Kaiserplatz 1, 49. Stock"], "iban": "DE89370400440532013000" },
+    "expect": { "format": "HYBRID", "payable": true, "issues": [] } },
+
+  { "id": "ADR-03", "title": "Free text only",
+    "creditor": { "name": "Proveedor Tres SL", "freeText": ["Av Diagonal 477", "08036 Barcelona"], "iban": "ES7921000813610123456789" },
+    "expect": { "format": "UNSTRUCTURED", "payable": false, "issues": ["TOWN_MISSING", "COUNTRY_INVALID"] } },
+
+  { "id": "ADR-04", "title": "Town missing",
+    "creditor": { "name": "Proveedor Cuatro SL", "street": "Gran Vía", "houseNumber": "28", "postalCode": "28013", "country": "ES", "iban": "ES7921000813610123456789" },
+    "expect": { "format": "UNSTRUCTURED", "payable": false, "issues": ["TOWN_MISSING"] } },
+
+  { "id": "ADR-05", "title": "Country written as a name",
+    "creditor": { "name": "Proveedor Cinco SL", "street": "Calle Mayor", "houseNumber": "3", "postalCode": "28013", "city": "Madrid", "country": "Spain", "iban": "ES7921000813610123456789" },
+    "expect": { "format": "UNSTRUCTURED", "payable": false, "issues": ["COUNTRY_INVALID"] } },
+
+  { "id": "ADR-06", "title": "Street longer than 70 characters",
+    "creditor": { "name": "Proveedor Seis SL", "street": "Polígono Industrial de la Ribera del Río Guadalquivir, Sector Norte, Nave Logística Ampliada", "houseNumber": "7", "postalCode": "41015", "city": "Sevilla", "country": "ES", "iban": "ES7921000813610123456789" },
+    "expect": { "format": "STRUCTURED", "payable": false, "issues": ["TOO_LONG"] } },
+
+  { "id": "ADR-07", "title": "House number inside the street field",
+    "creditor": { "name": "Proveedor Siete SL", "street": "Calle Mayor 12", "postalCode": "46002", "city": "Valencia", "country": "ES", "iban": "ES7921000813610123456789" },
+    "expect": { "format": "STRUCTURED", "payable": true, "issues": ["HOUSE_NUMBER_IN_STREET"] } },
+
+  { "id": "ADR-08", "title": "Hybrid with three address lines",
+    "creditor": { "name": "Fournisseur Huit SARL", "postalCode": "69002", "city": "Lyon", "country": "FR", "freeText": ["Bâtiment C", "Zone d'activité des Brotteaux", "Rue de la République"], "iban": "FR1420041010050500013M02606" },
+    "expect": { "format": "HYBRID", "payable": false, "issues": ["TOO_MANY_LINES"] } },
+
+  { "id": "ADR-09", "title": "Hybrid line repeats the town",
+    "creditor": { "name": "Lieferant Neun GmbH", "postalCode": "60311", "city": "Frankfurt am Main", "country": "DE", "freeText": ["Kaiserplatz 1, Frankfurt am Main"], "iban": "DE89370400440532013000" },
+    "expect": { "format": "HYBRID", "payable": true, "issues": ["DUPLICATED_DATA"] } },
+
+  { "id": "ADR-10", "title": "PO box in the street field",
+    "creditor": { "name": "Proveedor Diez SL", "street": "Apartado 1234", "postalCode": "48001", "city": "Bilbao", "country": "ES", "iban": "ES7921000813610123456789" },
+    "expect": { "format": "STRUCTURED", "payable": true, "issues": ["HOUSE_NUMBER_IN_STREET", "PO_BOX_IN_STREET"] } },
+
+  { "id": "ADR-11", "title": "Special characters are escaped",
+    "creditor": { "name": "Müller & Söhne GmbH", "street": "Straße des 17. Juni", "houseNumber": "135", "postalCode": "10623", "city": "Berlin", "country": "DE", "iban": "DE89370400440532013000" },
+    "expect": { "format": "STRUCTURED", "payable": true, "issues": [] } },
+
+  { "id": "ADR-12", "title": "Ultimate creditor with a free-text address",
+    "creditor": { "name": "Proveedor Doce SL", "street": "Paseo de Gracia", "houseNumber": "100", "postalCode": "08008", "city": "Barcelona", "country": "ES", "iban": "ES7921000813610123456789" },
+    "ultimateCreditor": { "name": "Filial Doce SL", "freeText": ["Rambla Nova 20", "43004 Tarragona"] },
+    "role": "UltmtCdtr",
+    "expect": { "format": "UNSTRUCTURED", "payable": false, "issues": ["TOWN_MISSING", "COUNTRY_INVALID"] } }
+]

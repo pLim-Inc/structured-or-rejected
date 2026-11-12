@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.legend { display: flex; gap: 20px; flex-wrap: nowrap; }
+.legend .st { letter-spacing: .07em; font-size: 12.5px; }
+.cal { margin-top: 30px; }
+.row, .head { display: grid; grid-template-columns: 124px repeat(4, 1fr); column-gap: 20px; }
+.head { border-bottom: 2.5px solid var(--ink); padding-bottom: 9px; }
+.head div { font: 800 20px/1.1 'Inter Display','Inter'; letter-spacing: -.02em; }
+.head div small { display: block; font: 400 13.5px/1.3 'Inter'; color: var(--ink3); letter-spacing: 0; margin-top: 4px; }
+.row { border-bottom: 1px solid var(--hair); padding: 14px 0 16px; min-height: 58px; }
+.row .q { font: 800 26px/1 'Inter Display','Inter'; letter-spacing: -.03em; }
+.row .q small { display: block; font: 600 12.5px/1 'Inter'; letter-spacing: .13em; color: var(--ink3); margin-top: 7px; }
+.row.yr { border-top: 2.5px solid var(--ink); }
+.e { display: grid; grid-template-columns: 17px 1fr; column-gap: 8px; margin-bottom: 11px; }
+.e:last-child { margin-bottom: 0; }
+.e i { width: 12px; height: 12px; margin-top: 5px; }
+.e.law i { background: var(--ink); }
+.e.open i { border: 2px solid var(--ink); }
+.e.ann i { border: 1.5px solid var(--ink); background: repeating-linear-gradient(135deg, #000 0 2px, #fff 2px 4.5px); }
+.e.est i { border: 2px solid var(--ink); border-radius: 50%; }
+.e b { display: block; font: 700 16px/1.2 'Inter'; }
+.e span { display: block; font: 400 15px/1.32 'Inter'; margin-top: 2px; }
+.e span em { font-style: normal; color: var(--red); font-weight: 600; }
+.row.busy { background: var(--tint); margin: 0 -14px; padding-left: 14px; padding-right: 14px; border-top: 3px solid var(--red); border-bottom: 0; }
+.row.busy .q small { color: var(--red); line-height: 1.35; }
+.row.now { padding-top: 12px; }
+.row.now .q small { color: var(--red); }
+.row.empty { min-height: 0; padding: 10px 0; }
+.row.empty .q { font-size: 18px; color: var(--ink3); }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">04</div><div><div class="meta">Regulatory calendar · Spain and the EU · 2026 to 2030</div><h1>What is law, what is announced, what has no date.</h1><p class="sub">Payments, invoicing, tax and AI rules that land on a finance architecture.</p></div></div>
+
+  <div class="sec"><div class="lab">How to read it</div>
+    <div class="legend">
+      <span class="st law"><i></i>Law, date fixed</span>
+      <span class="st est"><i></i>Rescheduled, estimated</span>
+      <span class="st ann"><i></i>Announced, not law</span>
+      <span class="st open"><i></i>Decision pending</span>
+    </div>
+  </div>
+
+  <div class="cal">
+    <div class="head"><div></div><div>Payments<small>Swift, SEPA, instant, PSR</small></div><div>Spain<small>VERI*FACTU, B2B e-invoicing</small></div><div>Europe<small>E-invoicing and VAT</small></div><div>AI and identity<small>AI Act, anti-money laundering</small></div></div>
+
+    <div class="row now"><div class="q">Q4<small>2026 · TODAY</small></div>
+      <div><div class="e open"><i></i><div><b>By December</b><span>Swift publishes new timing for retiring unstructured addresses</span></div></div></div><div></div><div></div><div></div></div>
+
+    <div class="row yr"><div class="q">Q1<small>2027</small></div>
+      <div><div class="e law"><i></i><div><b>9 January</b><span>Non-euro banks must receive euro instant payments</span></div></div><div class="e open"><i></i><div><b>By February</b><span>EPC board sets the SEPA end date for unstructured addresses</span></div></div></div>
+      <div><div class="e law"><i></i><div><b>1 January</b><span>VERI*FACTU for companies. <em>Deferral to Oct 2028 announced</em></span></div></div></div>
+      <div><div class="e law"><i></i><div><b>1 January</b><span>Germany: e-invoice issuing above €800k turnover</span></div></div></div><div></div></div>
+
+    <div class="row"><div class="q">Q2<small>2027</small></div>
+      <div><div class="e law"><i></i><div><b>12 June</b><span>Swift's deferred release goes live, without the payments changes</span></div></div></div><div></div><div></div><div></div></div>
+
+    <div class="row"><div class="q">Q3<small>2027</small></div>
+      <div><div class="e law"><i></i><div><b>9 July</b><span>Non-euro banks must send instant payments and verify the payee</span></div></div></div>
+      <div><div class="e law"><i></i><div><b>1 July</b><span>VERI*FACTU for all other taxpayers. <em>Same announcement</em></span></div></div><div class="e law"><i></i><div><b>By 6 August</b><span>Tax agency's public e-invoicing solution available</span></div></div></div>
+      <div><div class="e law"><i></i><div><b>1 September</b><span>France: small and micro companies issue e-invoices</span></div></div></div>
+      <div><div class="e law"><i></i><div><b>10 July</b><span>EU Anti-Money Laundering Regulation applies</span></div></div></div></div>
+
+    <div class="row busy"><div class="q">Q4<small>2027 · CROWDED:<br>AGREE THE FREEZE</small></div>
+      <div><div class="e law"><i></i><div><b>11 October</b><span>EU securities settle at T+1: tighter funding cut-offs</span></div></div><div class="e est"><i></i><div><b>November</b><span>Fedwire retires unstructured addresses; CHAPS expected</span></div></div></div>
+      <div><div class="e law"><i></i><div><b>6 October</b><span>B2B e-invoicing above €8M turnover: issue, receive, report status</span></div></div></div>
+      <div></div>
+      <div><div class="e law"><i></i><div><b>2 December</b><span>AI Act: high-risk systems listed in Annex III</span></div></div></div></div>
+
+    <div class="row yr"><div class="q">Q1<small>2028</small></div>
+      <div></div><div></div>
+      <div><div class="e law"><i></i><div><b>1 January</b><span>Germany: every B2B supplier issues e-invoices</span></div></div></div><div></div></div>
+
+    <div class="row empty"><div class="q">Q2 2028</div><div></div><div></div><div></div><div></div></div>
+
+    <div class="row"><div class="q">Q3<small>2028</small></div>
+      <div><div class="e est"><i></i><div><b>2028, estimated</b><span>PSR and PSD3 apply 21 months after entry into force. Not yet published</span></div></div></div>
+      <div></div>
+      <div><div class="e law"><i></i><div><b>1 July</b><span>ViDA: single VAT registration</span></div></div></div>
+      <div><div class="e law"><i></i><div><b>2 August</b><span>AI Act: high-risk AI in regulated products</span></div></div></div></div>
+
+    <div class="row"><div class="q">Q4<small>2028</small></div>
+      <div></div>
+      <div><div class="e law"><i></i><div><b>6 October</b><span>B2B e-invoicing for every other company and professional</span></div></div><div class="e ann"><i></i><div><b>October</b><span>VERI*FACTU, if the announced deferral becomes law</span></div></div></div>
+      <div></div><div></div></div>
+
+    <div class="row yr" style="border-bottom:1.5px solid #000"><div class="q">2030</div>
+      <div></div><div></div>
+      <div><div class="e law"><i></i><div><b>1 July</b><span>ViDA: e-invoicing and digital reporting for intra-EU B2B</span></div></div></div><div></div></div>
+  </div>
+
+  <div class="ft"><span>Status 12 Nov 2026 · Sources: Swift, EPC, ECB, BOE, AEAT, EUR-Lex · “By” = decision deadline</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+</body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.bp { position: relative; margin-top: 36px; padding-right: 54px; }
+.bh, .br { display: grid; grid-template-columns: 236px 1fr 1fr 1fr; column-gap: 22px; }
+.bh { border-top: 1.5px solid var(--ink); border-bottom: 2.5px solid var(--ink); padding: 12px 0 10px; }
+.bh div { font: 800 19px/1.12 'Inter Display','Inter'; letter-spacing: -.02em; }
+.bh div small { display: block; font: 600 11.5px/1.35 'Inter'; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); margin-top: 6px; }
+.br { border-bottom: 1px solid var(--hair); padding: 18px 0 20px; }
+.br:last-of-type { border-bottom: 2.5px solid var(--ink); }
+.cp { display: grid; grid-template-columns: 58px 1fr; }
+.cp .n { font: 800 64px/.82 'Inter Display','Inter'; letter-spacing: -.05em; color: var(--red); }
+.cp .v { font: 700 12px/1 'Inter'; letter-spacing: .15em; text-transform: uppercase; padding-top: 3px; }
+.cp .t { font: 700 18.5px/1.2 'Inter'; letter-spacing: -.012em; margin-top: 7px; }
+.cp .o { font: 400 14.5px/1.3 'Inter'; color: var(--ink3); margin-top: 8px; }
+.cp .o b { font-weight: 600; color: var(--ink); }
+.c p { font-size: 15.5px; line-height: 1.36; margin-bottom: 7px; }
+.c p:last-child { margin-bottom: 0; }
+.c .k { display: block; font: 700 11px/1 'Inter'; letter-spacing: .14em; text-transform: uppercase; margin: 11px 0 4px; }
+.c .k.r { color: var(--red); }
+.c .m { font-size: 14px; }
+#loop { position: absolute; right: 0; top: 0; width: 46px; height: 100%; overflow: visible; }
+.looplab { position: absolute; right: -4px; font: 700 11.5px/1 'Inter'; letter-spacing: .14em; text-transform: uppercase; color: var(--red); writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; }
+.pr { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 28px; }
+.pr div { border-top: 4px solid var(--ink); padding-top: 10px; font: 700 21px/1.22 'Inter Display','Inter'; letter-spacing: -.018em; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">06</div><div><div class="meta">Solution blueprint · Process × system × rule</div><h1>Five control points.<br>Read each row left to right.</h1><p class="sub">Where compliance is decided in purchase-to-pay and order-to-cash, which system holds it, and which rule and date bite.</p></div></div>
+
+  <div class="bp" id="bp">
+    <div class="bh"><div>Control point<small>Step and owner</small></div><div>SAP S/4HANA core<small>System of record</small></div><div>SAP BTP, side by side<small>Measures, explains, proposes</small></div><div>Outside<small>Who answers, which rule, which date</small></div></div>
+
+    <div class="br" id="r1"><div class="cp"><div class="n">1</div><div><div class="v">Capture</div><div class="t">A business partner is created or changed</div><div class="o">Owner <b>Master data</b></div></div></div>
+      <div class="c"><p><b>Business Partner</b> address in separate fields: street, house number, postal code, city, country.</p><p><b>Hard check at save:</b> town and ISO country code.</p><p>Master Data Governance rules where licensed.</p></div>
+      <div class="c"><p><b>Readiness service</b> on CAP: a verdict per address, exposure by format.</p><p><b>AI structurer</b> proposes splits for the long tail. A person approves.</p></div>
+      <div class="c"><p>Supplier and customer onboarding data.</p><span class="k">Rule</span><p>Town and country mandatory, structured or hybrid.</p><span class="k r">Date</span><p>Open. Swift by December 2026, EPC by February 2027.</p></div></div>
+
+    <div class="br" id="r2"><div class="cp"><div class="n">2</div><div><div class="v">Issue</div><div class="t">An invoice is issued</div><div class="o">Owner <b>Billing and tax</b></div></div></div>
+      <div class="c"><p>Billing feeds <b>SAP Document and Reporting Compliance</b>.</p><p>Channel per entity: SII, VERI*FACTU or foral.</p><p>The e-invoice is built from the same master data.</p></div>
+      <div class="c"><p><b>Communication layer</b>, by track: SAP Integration Suite, or the cloud edition of Document and Reporting Compliance.</p><p>UBL in the EN 16931 model. A faithful copy reaches the public solution.</p></div>
+      <div class="c"><p>Tax agency. The customer's platform or the public solution.</p><span class="k">Rule</span><p>RD 1007/2023 and RD 238/2026.</p><span class="k r">Date</span><p>6 October 2027 above €8M. 6 October 2028 for all.</p></div></div>
+
+    <div class="br" id="r3"><div class="cp"><div class="n">3</div><div><div class="v">Receive</div><div class="t">An invoice is received</div><div class="o">Owner <b>Accounts payable</b></div></div></div>
+      <div class="c"><p>Incoming e-invoice becomes a posted supplier invoice.</p><p><b>A rejection goes out as a status</b>, not as an email.</p></div>
+      <div class="c"><p><b>Worklist with the legal due date</b> for each status.</p><p>Inbound through the same communication layer.</p></div>
+      <div class="c"><p>The supplier's platform or the public solution.</p><span class="k">Rule</span><p>The recipient reports rejection and the date of full payment.</p><span class="k r">Date</span><p>Four days, weekends and national holidays excluded.</p></div></div>
+
+    <div class="br" id="r4"><div class="cp"><div class="n">4</div><div><div class="v">Pay</div><div class="t">A payment is released</div><div class="o">Owner <b>Treasury</b></div></div></div>
+      <div class="c"><p>Payment run, then the <b>format</b>: <span class="m">pain.001.001.09</span>, structured or hybrid. DMEEX or Map Format Data.</p><p><b>Approval</b> in Bank Communication Management.</p></div>
+      <div class="c"><p><b>Pre-release check:</b> the verdict per payee is shown to the approver.</p><p>SAP Multi-Bank Connectivity.</p></div>
+      <div class="c"><p>Bank over SWIFT, EBICS or host-to-host. The bank's own validator.</p><span class="k">Rule</span><p>Verification of Payee.</p><span class="k r">Date</span><p>Euro area since 9 October 2025. Others 9 July 2027.</p></div></div>
+
+    <div class="br" id="r5"><div class="cp"><div class="n">5</div><div><div class="v">Confirm</div><div class="t">The bank answers</div><div class="o">Owner <b>Treasury and accounts payable</b></div></div></div>
+      <div class="c"><p><span class="m">pain.002</span> status updates the payment monitor.</p><p><span class="m">camt.053</span> statement, then clearing, then the <b>payment date</b>.</p></div>
+      <div class="c"><p><b>Reject router:</b> reason code, root cause, owner.</p><p>A Joule agent explains each reject with read-only tools.</p></div>
+      <div class="c"><p>Bank status report and statement.</p><span class="k r">Loop</span><p><b class="red">The payment date goes back to control point 3 as the invoice status.</b></p></div></div>
+
+    <svg id="loop"></svg>
+    <div class="looplab" id="ll">Payment date becomes invoice status</div>
+  </div>
+
+  <div class="sec"><div class="lab">Three design rules</div>
+    <div class="pr"><div>The core is the system of record.</div><div>The side-by-side layer measures, explains and proposes.</div><div>AI never writes alone.</div></div>
+  </div>
+
+  <div class="ft"><span>S/4HANA Private Cloud, on-premise and Public Cloud · Availability varies by release</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+<script>
+const bp = document.getElementById('bp').getBoundingClientRect();
+const mid = id => { const r = document.getElementById(id).getBoundingClientRect(); return r.top - bp.top + r.height / 2; };
+const y5 = mid('r5'), y3 = mid('r3');
+const s = document.getElementById('loop');
+s.setAttribute('viewBox', `0 0 46 ${bp.height}`);
+s.innerHTML = `<path d="M0 ${y5} H26 V${y3} H10" fill="none" stroke="#e2231a" stroke-width="3"/><path d="M0 ${y3} l13 -8 v16 z" fill="#e2231a"/>`;
+const ll = document.getElementById('ll');
+ll.style.top = (y3 + (y5 - y3) / 2 - ll.offsetHeight / 2) + 'px';
+</script>
+</body></html>

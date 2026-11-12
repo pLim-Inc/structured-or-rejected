@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.fmt { display: grid; grid-template-columns: 300px 1fr; border-bottom: 1px solid var(--hair); padding: 18px 0 20px; }
+.fmt:first-child { padding-top: 4px; }
+.fmt:last-child { border-bottom: 0; padding-bottom: 0; }
+.fmt .t { font: 800 27px/1.05 'Inter Display','Inter'; letter-spacing: -.025em; }
+.fmt .st { margin-top: 12px; }
+.fmt p { font-size: 16px; color: var(--ink2); margin-top: 10px; padding-right: 22px; }
+.fmt pre { font-size: 16.5px; line-height: 1.5; border-left: 4px solid var(--ink); padding: 2px 0 2px 18px; align-self: center; }
+.fmt.bad pre { border-left-color: var(--red); }
+.fmt pre b { font-weight: 700; }
+.fmt pre s { text-decoration: none; color: var(--red); }
+.rules { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 28px; }
+.rules > div { border-top: 4px solid var(--ink); padding-top: 10px; }
+.rules .n { font: 800 44px/1 'Inter Display','Inter'; letter-spacing: -.04em; }
+.rules p { margin-top: 8px; font-size: 16.5px; }
+td.tag { font: 700 15.5px/1.45 'DejaVu Sans Mono', monospace; }
+td.len { white-space: nowrap; }
+tr.must td { background: var(--tint); }
+tr.must td:first-child { box-shadow: -10px 0 0 var(--tint); }
+.req { font: 700 11.5px/1 'Inter'; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-left: 10px; font-family: 'Inter'; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">01</div><div><div class="meta">ISO 20022 · Postal address in a payment message</div><h1>One address, three formats. Only two have a future.</h1><p class="sub">The same supplier address as it travels to the bank, and the SAP field behind each element.</p></div></div>
+
+  <div class="sec"><div class="lab">The formats<small>What the bank receives inside &lt;PstlAdr&gt;</small></div>
+    <div>
+      <div class="fmt bad"><div><div class="t">Unstructured</div><span class="st no"><i></i>Rejected at the new date</span><p>Free text only. No machine can tell the town from the street.</p></div>
+<pre>&lt;PstlAdr&gt;
+  <s>&lt;AdrLine&gt;</s>Calle Principal 123<s>&lt;/AdrLine&gt;</s>
+  <s>&lt;AdrLine&gt;</s>28001 Madrid, España<s>&lt;/AdrLine&gt;</s>
+&lt;/PstlAdr&gt;</pre></div>
+      <div class="fmt"><div><div class="t">Hybrid</div><span class="st open"><i></i>Accepted · a bridge</span><p>For records that will not split cleanly. Allowed in SEPA since 5 October 2025.</p></div>
+<pre>&lt;PstlAdr&gt;
+  <b>&lt;PstCd&gt;</b>28001<b>&lt;/PstCd&gt;</b>
+  <b>&lt;TwnNm&gt;</b>Madrid<b>&lt;/TwnNm&gt;</b>
+  <b>&lt;Ctry&gt;</b>ES<b>&lt;/Ctry&gt;</b>
+  <s>&lt;AdrLine&gt;</s>Calle Principal 123<s>&lt;/AdrLine&gt;</s>
+&lt;/PstlAdr&gt;</pre></div>
+      <div class="fmt"><div><div class="t">Fully structured</div><span class="st ok"><i></i>Accepted · the target</span><p>Every component in its own element. The format the EPC recommends.</p></div>
+<pre>&lt;PstlAdr&gt;
+  <b>&lt;StrtNm&gt;</b>Calle Principal<b>&lt;/StrtNm&gt;</b>
+  <b>&lt;BldgNb&gt;</b>123<b>&lt;/BldgNb&gt;</b>
+  <b>&lt;PstCd&gt;</b>28001<b>&lt;/PstCd&gt;</b>
+  <b>&lt;TwnNm&gt;</b>Madrid<b>&lt;/TwnNm&gt;</b>
+  <b>&lt;Ctry&gt;</b>ES<b>&lt;/Ctry&gt;</b>
+&lt;/PstlAdr&gt;</pre></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">The rules</div>
+    <div class="rules">
+      <div><div class="n">1</div><p><b>Town and country are mandatory</b> in both surviving formats. Country is a two-letter ISO code, never a name.</p></div>
+      <div><div class="n">2</div><p><b>Hybrid allows two free-text lines</b> of 70 characters at most. Structured allows none.</p></div>
+      <div><div class="n">3</div><p><b>No repetition.</b> A free-text line must not restate the town or postal code already sent as elements.</p></div>
+    </div>
+  </div>
+
+  <div class="sec"><div class="lab">The source in SAP<small>Business Partner address. Every element is filled where the data is created.</small></div>
+    <table>
+      <tr><th>Business Partner API</th><th>Classic table</th><th>ISO 20022 element</th><th>Max. length</th></tr>
+      <tr><td class="m">StreetName</td><td class="m">ADRC-STREET</td><td class="tag">&lt;StrtNm&gt;</td><td class="len">70</td></tr>
+      <tr><td class="m">HouseNumber</td><td class="m">ADRC-HOUSE_NUM1</td><td class="tag">&lt;BldgNb&gt;</td><td class="len">16</td></tr>
+      <tr><td class="m">POBox</td><td class="m">ADRC-PO_BOX</td><td class="tag">&lt;PstBx&gt;</td><td class="len">16</td></tr>
+      <tr><td class="m">PostalCode</td><td class="m">ADRC-POST_CODE1</td><td class="tag">&lt;PstCd&gt;</td><td class="len">16</td></tr>
+      <tr class="must"><td class="m">CityName</td><td class="m">ADRC-CITY1</td><td class="tag">&lt;TwnNm&gt;<span class="req">Mandatory</span></td><td class="len">35</td></tr>
+      <tr class="must"><td class="m">Country</td><td class="m">ADRC-COUNTRY</td><td class="tag">&lt;Ctry&gt;<span class="req">Mandatory</span></td><td class="len">2 · ISO 3166-1</td></tr>
+    </table>
+  </div>
+
+  <div class="ft"><span>Rules: Swift CBPR+, EPC guidance EPC153-22 · Banks publish their own guides</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+</body></html>

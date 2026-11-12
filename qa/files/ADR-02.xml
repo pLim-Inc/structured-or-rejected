@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ADR-02: Hybrid: town and country plus one line. Synthetic test file. -->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>QA-ADR-02</MsgId>
+      <CreDtTm>2027-02-01T09:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>1.00</CtrlSum>
+      <InitgPty><Nm>Alba Industrial SA</Nm></InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>QA-ADR-02-PMT</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <ReqdExctnDt><Dt>2027-02-02</Dt></ReqdExctnDt>
+      <Dbtr>
+        <Nm>Alba Industrial SA</Nm>
+        <PstlAdr>
+          <StrtNm>Calle de Serrano</StrtNm>
+          <BldgNb>41</BldgNb>
+          <PstCd>28001</PstCd>
+          <TwnNm>Madrid</TwnNm>
+          <Ctry>ES</Ctry>
+        </PstlAdr>
+      </Dbtr>
+      <DbtrAcct><Id><IBAN>ES9121000418450200051332</IBAN></Id></DbtrAcct>
+      <DbtrAgt><FinInstnId><BICFI>CAIXESBBXXX</BICFI></FinInstnId></DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId><EndToEndId>ADR-02</EndToEndId></PmtId>
+        <Amt><InstdAmt Ccy="EUR">1.00</InstdAmt></Amt>
+        <Cdtr>
+          <Nm>Lieferant Zwei GmbH</Nm>
+          <PstlAdr>
+            <PstCd>60311</PstCd>
+            <TwnNm>Frankfurt am Main</TwnNm>
+            <Ctry>DE</Ctry>
+            <AdrLine>Kaiserplatz 1, 49. Stock</AdrLine>
+          </PstlAdr>
+        </Cdtr>
+        <CdtrAcct><Id><IBAN>DE89370400440532013000</IBAN></Id></CdtrAcct>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
+</Document>

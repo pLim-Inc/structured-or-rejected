@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="dg.css">
+<style>
+.dg { margin-top: 0; }
+.band { display: grid; grid-template-columns: var(--col) 1fr; border-top: 1.5px solid var(--ink); padding: 16px 0 34px; }
+.band:first-child { margin-top: 38px; }
+.band:last-child { padding-bottom: 6px; }
+.band .lab small { padding-right: 34px; }
+.cols { display: grid; grid-template-columns: repeat(3, 241px); column-gap: 40px; row-gap: 40px; }
+.bx { min-height: 96px; }
+.c2 { grid-column: 2; } .c3 { grid-column: 3; } .c23 { grid-column: 2 / 4; }
+.split { display: grid; grid-template-columns: 1fr 1fr; padding: 0; min-height: 0; }
+.split > div { padding: 10px 12px 11px; }
+.split > div + div { border-left: 1px solid var(--ink); }
+.pr { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 28px; }
+.pr div { border-top: 4px solid var(--ink); padding-top: 10px; font: 800 20px/1.2 'Inter Display','Inter'; letter-spacing: -.018em; }
+.pr div span { display: block; font: 400 14.5px/1.36 'Inter'; letter-spacing: 0; color: var(--ink2); margin-top: 6px; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">13</div><div><div class="meta">SAP reference architecture · View 3 of 3</div><h1>Side by side,<br>with AI behind a service.</h1><p class="sub">The extension layer on SAP BTP. It reads the core through released interfaces, proposes, and writes only after a person approves.</p></div></div>
+
+  <div class="dg" id="d">
+    <div class="band"><div class="lab">Experience<small>Master data, accounts payable, treasury</small></div>
+      <div class="cols">
+        <div class="bx c2" id="wz"><b>SAP Build Work Zone</b><p>Or the Fiori launchpad. Worklists with a verdict and a due date.</p></div>
+        <div class="bx c3" id="jo"><b>Joule</b><p>Questions in natural language: why was this payment rejected?</p></div>
+      </div>
+    </div>
+
+    <div class="band"><div class="lab">SAP BTP<small>Side by side. Measures, explains, proposes</small></div>
+      <div class="cols">
+        <div class="bx" id="hc"><b>SAP HANA Cloud</b><p>Verdicts, reject history, remediation queue.</p></div>
+        <div class="bx kit" id="cap"><b>CAP service</b><p>Classifier, file check, reject router, readiness score.</p><span class="m">the kit of this article · Node.js</span></div>
+        <div class="bx" id="ag"><b>Agent built in Joule Studio</b><p>Explains a reject with read-only tools.</p></div>
+        <div class="bx" id="ids"><b>SAP Cloud Identity Services</b><p>One identity for the user in S/4HANA and on SAP BTP.</p></div>
+        <div class="bx" id="dst"><b>Destination and connectivity services</b><p>The only way out of the subaccount.</p></div>
+        <div class="bx" id="hub"><b>Generative AI hub in SAP AI Core</b><p>Models behind one orchestration interface.</p><span class="m">SAP Cloud SDK for AI</span></div>
+      </div>
+    </div>
+
+    <div class="band"><div class="lab">Connectivity<small>One of the two, by edition</small></div>
+      <div class="cols">
+        <div class="bx split c23" id="con"><div><span class="k">Private cloud, on-premise</span><b>Cloud Connector</b><p>Outbound tunnel from the customer network.</p></div><div><span class="k">Public cloud</span><b>Communication arrangement</b><p>For the business partner interface.</p><span class="m">SAP_COM_0008</span></div></div>
+      </div>
+    </div>
+
+    <div class="band"><div class="lab">SAP S/4HANA<small>System of record. The only place where data changes</small></div>
+      <div class="cols">
+        <div class="bx" id="sor"><b>Business partner</b><p>The address this layer scores. View 1.</p></div>
+        <div class="bx" id="api"><b>Released interfaces</b><p>OData services, business events and released CDS views.</p><span class="m">API_BUSINESS_PARTNER</span></div>
+        <div class="bx" id="cds"><b>Payments and electronic documents</b><p>Status reports, statements, document status. Views 1 and 2.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" style="margin-top:34px"><div class="lab">Reading the diagram</div>
+    <div class="lg"><span><i class="ln"></i>Calls</span><span><i class="ln r"></i>Writes, after approval</span><span><i class="sq k"></i>Built in this article</span><span><i class="sq"></i>SAP standard</span></div>
+  </div>
+
+  <div class="sec"><div class="lab">Three rules</div>
+    <div class="pr"><div>Read through released interfaces.<span>Nothing on SAP BTP reads a table directly.</span></div><div>Write through the same interface, after approval.<span>A proposal stays a proposal until a person accepts it.</span></div><div>Three subaccounts, three tiers.<span>Development, test and production, each paired with the S/4HANA system of its tier.</span></div></div>
+  </div>
+
+  <div class="ft"><span>Pattern: SAP Architecture Center, Generative AI on SAP BTP · Original drawing</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+<script src="dg.js"></script>
+<script>
+document.fonts.ready.then(() => {
+  const cx = id => { const r = document.getElementById(id).getBoundingClientRect(); return r.left + r.width / 2; };
+  const k = cx('dst') - cx('con');
+  wires('#d', [
+    { from: 'wz', fs: 'b', to: 'cap', ts: 't' },
+    { from: 'jo', fs: 'b', to: 'ag', ts: 't' },
+    { from: 'ag', fs: 'l', to: 'cap', ts: 'r' },
+    { from: 'cap', fs: 'l', to: 'hc', ts: 'r', both: 1 },
+    { from: 'ag', fs: 'b', fo: 40, to: 'hub', ts: 't', to_: 40, label: 'model', ldx: 34 },
+    { from: 'cap', fs: 'b', fo: 70, to: 'hub', ts: 't', to_: -60, label: 'proposal', lseg: 1 },
+    { from: 'cap', fs: 'b', fo: -30, to: 'dst', ts: 't', to_: -30 },
+    { from: 'dst', fs: 'b', fo: -30, to: 'con', ts: 't', to_: k - 30 }, { from: 'con', fs: 'b', fo: k - 30, to: 'api', ts: 't', to_: -30, label: 'read', ldx: -30 },
+    { from: 'dst', fs: 'b', fo: 30, to: 'con', ts: 't', to_: k + 30, red: 1 }, { from: 'con', fs: 'b', fo: k + 30, to: 'api', ts: 't', to_: 30, red: 1, label: 'write', ldx: 32 },
+    { from: 'api', fs: 'l', to: 'sor', ts: 'r', both: 1 },
+    { from: 'api', fs: 'r', to: 'cds', ts: 'l', both: 1 },
+  ]);
+});
+</script>
+</body></html>

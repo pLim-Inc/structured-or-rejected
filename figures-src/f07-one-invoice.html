@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+.s { display: grid; grid-template-columns: 62px 206px 1fr 300px; border-bottom: 1px solid var(--hair); padding: 16px 0 18px; }
+.sh { display: grid; grid-template-columns: 62px 206px 1fr 300px; border-bottom: 2.5px solid var(--ink); padding-bottom: 9px; }
+.sh span { font: 600 12.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; }
+.s:last-child { border-bottom: 1.5px solid var(--ink); }
+.s .n { font: 800 40px/.9 'Inter Display','Inter'; letter-spacing: -.04em; }
+.s .d b { display: block; font: 700 18px/1.2 'Inter'; letter-spacing: -.01em; }
+.s .d span { display: block; font: 600 11.5px/1.3 'Inter'; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); margin-top: 6px; }
+.s .w { padding-right: 26px; }
+.s .w b { font: 700 18.5px/1.25 'Inter'; letter-spacing: -.012em; display: block; }
+.s .w p { font-size: 15.5px; line-height: 1.38; color: var(--ink2); margin-top: 5px; }
+.s pre { font-size: 13.5px; line-height: 1.5; border-left: 3px solid var(--ink); padding-left: 12px; align-self: start; white-space: pre-wrap; }
+.s pre b { font-weight: 700; }
+.s.bad .n, .s.bad .w b { color: var(--red); }
+.s.bad pre { border-left-color: var(--red); }
+.s.bad pre b { color: var(--red); }
+.s.end { background: var(--tint); margin: 0 -14px; padding-left: 14px; padding-right: 14px; }
+.take { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 28px; }
+.take div { border-top: 4px solid var(--ink); padding-top: 10px; }
+.take b { font: 800 40px/1 'Inter Display','Inter'; letter-spacing: -.04em; display: block; }
+.take p { font-size: 16px; margin-top: 6px; }
+</style></head><body>
+<div class="fig">
+  <div class="hd"><div class="no">07</div><div><div class="meta">Worked example · Purchase-to-pay, October 2027</div><h1>Follow one invoice.</h1><p class="sub">One supplier invoice, one rejected payment, one fix at source, and the status the buyer now owes on it.</p></div></div>
+
+  <div class="sec full" style="margin-top:36px">
+    <div class="sh"><span></span><span>When and who</span><span>What happens</span><span>The message</span></div>
+
+    <div class="s"><div class="n">1</div><div class="d"><b>Mon 11 Oct</b><span>Accounts payable</span></div><div class="w"><b>E-invoice received</b><p>Proveedor Tres SL invoices €1,800.00, due 28 October. It arrives as structured data.</p></div><pre>UBL invoice, EN 16931
+ID <b>F-2027-0931</b>
+PayableAmount <b>1800.00 EUR</b></pre></div>
+
+    <div class="s"><div class="n">2</div><div class="d"><b>Wed 13 Oct</b><span>Accounts payable</span></div><div class="w"><b>Posted, no rejection sent</b><p>Without a rejection status, the invoice counts as accepted.</p></div><pre>Supplier invoice posted
+Status <b>accepted</b> (presumed)</pre></div>
+
+    <div class="s"><div class="n">3</div><div class="d"><b>Tue 26 Oct</b><span>Treasury</span></div><div class="w"><b>Payment file sent</b><p>The supplier's address is still two lines of free text in the master data.</p></div><pre>pain.001  E2E-0003
+&lt;AdrLine&gt;Av Diagonal 477&lt;/AdrLine&gt;
+&lt;AdrLine&gt;08036 Barcelona&lt;/AdrLine&gt;</pre></div>
+
+    <div class="s bad"><div class="n">4</div><div class="d"><b>Tue 26 Oct</b><span>Bank</span></div><div class="w"><b>The bank rejects the payment</b><p>The status report names the reason. Nothing was paid.</p></div><pre>pain.002  E2E-0003
+TxSts <b>RJCT</b>
+Rsn   <b>BE04</b> MissingCreditorAddress</pre></div>
+
+    <div class="s"><div class="n">5</div><div class="d"><b>Tue 26 Oct</b><span>Reject router</span></div><div class="w"><b>Routed to its owner</b><p>The reason code maps to a root cause, and the root cause to a team. The classifier says what is wrong.</p></div><pre>BE04 → <b>ADDRESS</b> → Master data
+TOWN_MISSING, COUNTRY_INVALID</pre></div>
+
+    <div class="s"><div class="n">6</div><div class="d"><b>Wed 27 Oct</b><span>Master data</span></div><div class="w"><b>Fixed at source</b><p>The business partner is corrected once. Every later payment inherits the fix.</p></div><pre>StrtNm <b>Avenida Diagonal</b>
+BldgNb <b>477</b>   PstCd <b>08036</b>
+TwnNm <b>Barcelona</b>   Ctry <b>ES</b>
+verdict <b>STRUCTURED</b></pre></div>
+
+    <div class="s"><div class="n">7</div><div class="d"><b>Thu 28 Oct</b><span>Treasury and bank</span></div><div class="w"><b>Paid on the due date</b><p>The payment is accepted and the bank statement books the debit. The open item clears.</p></div><pre>pain.002  TxSts <b>ACSC</b>
+camt.053  DBIT 1800.00
+BookgDt <b>2027-10-28</b></pre></div>
+
+    <div class="s end"><div class="n red">8</div><div class="d"><b>By Thu 4 Nov</b><span>Accounts payable</span></div><div class="w"><b>Payment date reported as the invoice status</b><p>Four days from the day after payment. The weekend and the 1 November holiday do not count.</p></div><pre>Invoice <b>F-2027-0931</b>
+Status <b>paid in full</b>
+Date   <b>2027-10-28</b></pre></div>
+  </div>
+
+  <div class="sec"><div class="lab">What the example shows</div>
+    <div class="take">
+      <div><b>1</b><p>A missing town cost one day and one rejected payment. Fixed at control point 1, it would have cost nothing.</p></div>
+      <div><b>2</b><p>The fix belongs to master data, not to treasury. The reason code has to reach the right team.</p></div>
+      <div><b>3</b><p>The bank's booking date ends up on the supplier's invoice. Payments and invoicing are one loop.</p></div>
+    </div>
+  </div>
+
+  <div class="ft"><span>Illustrative · Assumes the bank already rejects unstructured addresses</span><span>Structured or Rejected · M. Sosim</span></div>
+</div>
+</body></html>

@@ -1,0 +1,34 @@
+{
+  "name": "structured-or-rejected-kit",
+  "version": "1.2.0",
+  "description": "ISO 20022 address readiness and VERI*FACTU chain checks for SAP S/4HANA, side by side on SAP BTP (CAP Node.js)",
+  "license": "MIT",
+  "author": "Marcio Sosim",
+  "repository": { "type": "git", "url": "https://github.com/pLim-Inc/structured-or-rejected.git" },
+  "private": true,
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "test": "node --test",
+    "lint:file": "node scripts/lint-payment-file.js",
+    "qa:files": "node scripts/generate-qa-files.js",
+    "go-no-go": "node scripts/go-no-go.js",
+    "check-case": "node scripts/check-case.js"
+  },
+  "dependencies": {
+    "@sap/cds": "^9",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2",
+    "@sap/cds-dk": "^9"
+  },
+  "optionalDependencies": {
+    "@sap-ai-sdk/orchestration": "^2"
+  },
+  "cds": {
+    "requires": {
+      "db": { "kind": "sqlite", "credentials": { "url": ":memory:" } }
+    }
+  }
+}

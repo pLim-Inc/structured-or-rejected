@@ -1,0 +1,30 @@
+{
+  "label": "",
+  "permission": "",
+  "asOf": "",
+  "method": "",
+  "group": {
+    "alias": "",
+    "erp": "",
+    "companyCodes": null,
+    "paymentRun": { "frequency": "", "weekday": "", "paymentsPerRun": null },
+    "paymentFormat": { "message": "", "builtYear": null, "addressWrittenAs": "" }
+  },
+  "entities": [
+    { "alias": "", "domicile": "", "turnoverMEUR": null, "vatReporting": "", "invoicesIssuedPerYear": null }
+  ],
+  "banks": [
+    { "alias": "", "channel": "", "shareOfPaymentValuePct": null }
+  ],
+  "baseline": {
+    "payees": { "structured": null, "warnings": null, "notPayable": null },
+    "valueMEUR": { "structured": null, "warnings": null, "notPayable": null },
+    "lastFile": { "creditorAddresses": null, "structured": null, "hybrid": null, "unstructured": null },
+    "oneTimePayments12m": null,
+    "topNotPayable": { "payees": null, "valueMEUR": null }
+  },
+  "calendar": [
+    { "date": "", "event": "", "law": false }
+  ],
+  "targets": { "payableValuePctBeforePilot": null, "addressRejectPctAfterGoLive": null }
+}
